@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <form>
+    <p>
+      <input id="popup_time" type="number" min = "0">
+      <label for="popup_time">ミリ秒後にポップアップ</label>
+    </p>
+    <p>
+      <label for="media_max_width">最大横幅 (ピクセル)</label>
+      <input type="number" id="media_max_width">
+      <br>
+      <label for="media_max_height">最大縦幅 (ピクセル)</label>
+      <input type="number" id="media_max_height">
+      <br>
+    </p>
+    <input type="checkbox" id="video_play">
+    <label for="video_play">動画を自動的に再生</label>
+    </br>
+    <input type="checkbox" id="video_muted">
+    <label for="video_muted">動画をミュート</label>
+    </br>
+    <input type="checkbox" id="video_loop">
+    <label for="video_loop">動画をループ</label>
+    </br>
+    <input type="checkbox" id="video_control">
+    <label for="video_control">動画のコントロールを表示</label>
+    </p>
+    <p>
+      <label for="video_volume">デフォルトのボリューム</label>
+      <br>
+      <label>0%</label>
+      <input type="range" id="video_volume" list="tickmarks" min="0.0" , max="1.0" , step="0.01">
+      <label>100%</label>
+    </p>
+    <p>
+      <button type="submit">Save</button>
+    </p>
+  </form>
+
+  <script src="options.js"></script>
+
+</body>
+
+</html>
