@@ -103,6 +103,13 @@ class Cell{
         this.loaded = true;
     }
 
+    onNoimageLoad(e){
+        let media_url = browser.extension.getURL("img/NoImage.png");
+//      console.log("cat.js : media_url = " + media_url);
+        this.setImage(media_url);
+        this.loaded = true;
+    }
+
     onThreError(e){
         this.loading = false;
     }
@@ -117,7 +124,13 @@ class Cell{
             xhr.responseType = "document";
             xhr.timeout = 60000;
             xhr.open('GET', this.link);
-            xhr.onload = (e) => {if(xhr.status == 200){this.onThreLoad(xhr.responseXML);}};
+            xhr.onload = (e) => {if(xhr.status == 200){
+                                   this.onThreLoad(xhr.responseXML);
+                                 }
+                                 if(xhr.status == 404){
+                                   this.onNoimageLoad(e);
+                                 }
+                                };
             xhr.onerror = (e) => {this.onThreError(e)};
             xhr.ontimeout = (e) => {this.onThreTimeout(e)};
             xhr.send();
