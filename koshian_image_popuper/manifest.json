@@ -1,9 +1,9 @@
 {
     "manifest_version":2,
 
-    "name":"KOSHIAN カタログの画像をポップアップで表示",
+    "name":"KOSHIAN カタログの画像をポップアップで表示 改",
 
-    "version":"1.0.4",
+    "version":"1.0.0",
 
     "description":"スレ画像をポップアップ表示します",
 
@@ -29,7 +29,11 @@
     
     "applications":{
         "gecko":{
-            "id":"{a568ecec-2e66-484c-82d3-cb25c8d2a965}"
+            "id":"{4B803436-E2DF-11E7-8568-2E3D1843E317}"
         }
-    }
+    },
+
+    "web_accessible_resources":[
+        "img/NoImage.png"
+    ]
 }
