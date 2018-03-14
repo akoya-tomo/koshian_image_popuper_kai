@@ -6,6 +6,7 @@ const DEFAULT_VIDEO_MUTED = false;
 const DEFAULT_VIDEO_VOLUME = 0.5;
 const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
+const DEFAULT_POPUP_LINK = false;
 
 function onError(error) {
 }
@@ -29,7 +30,8 @@ function saveOptions(e) {
     video_loop: document.querySelector("#video_loop").checked,
     video_muted: document.querySelector("#video_muted").checked,
     video_play: document.querySelector("#video_play").checked,
-    video_volume: document.querySelector("#video_volume").value
+    video_volume: document.querySelector("#video_volume").value,
+    popup_link: document.querySelector("#popup_link").checked
   });
 }
 
@@ -42,6 +44,7 @@ function setCurrentChoice(result) {
   document.querySelector("#video_muted").checked = safeGetValue(result.video_muted, DEFAULT_VIDEO_MUTED);
   document.querySelector("#video_play").checked = safeGetValue(result.video_play, DEFAULT_VIDEO_PLAY);
   document.querySelector("#video_volume").value = safeGetValue(result.video_volume, DEFAULT_VIDEO_VOLUME);
+  document.querySelector("#popup_link").checked = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
 }
 
 function restoreOptions() {

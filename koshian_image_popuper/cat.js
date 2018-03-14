@@ -8,6 +8,7 @@ const DEFAULT_VIDEO_MUTED = false;
 const DEFAULT_VIDEO_VOLUME = 0.5;
 const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
+const DEFAULT_POPUP_LINK = false;
 
 let g_media_max_width = DEFAULT_MEDIA_MAX_WIDTH;
 let g_media_max_height = DEFAULT_MEDIA_MAX_HEIGHT;
@@ -17,6 +18,7 @@ let g_video_muted = DEFAULT_VIDEO_MUTED;
 let g_video_volume = DEFAULT_VIDEO_VOLUME;
 let g_video_play = DEFAULT_VIDEO_PLAY;
 let g_popup_time = DEFAULT_POPUP_TIME;
+let g_popup_link = DEFAULT_POPUP_LINK;
 
 function getMediaUrl(thre_doc){
     let thre_list = thre_doc.getElementsByClassName("thre");
@@ -51,6 +53,7 @@ class Cell{
         this.max_height = 0;
         this.mouseon = false;
         this.timer = false;
+        this.parent = parent;
         
         this.popup.style.display = "none";
         this.popup.style.zIndex = 1;
@@ -65,6 +68,11 @@ class Cell{
     }
 
     setImage(url){
+        if (g_popup_link) {
+            this.parent.href = this.target;
+            this.parent.target = "_blank";
+        }
+
         this.img = document.createElement("img");
         this.img.src = url;
         this.img.style.maxWidth = `${this.max_width}px`;
@@ -73,6 +81,11 @@ class Cell{
     }
 
     setVideo(url){
+        if (g_popup_link) {
+            this.parent.href = this.target;
+            this.parent.target = "_blank";
+        }
+
         this.video = document.createElement("video");
         this.video.src = url;
         this.video.controls = g_video_control;
@@ -314,6 +327,7 @@ function onGetSettings(result){
     g_video_muted = safeGetValue(result.video_muted, DEFAULT_VIDEO_MUTED);
     g_video_volume =  safeGetValue(result.video_volume, DEFAULT_VIDEO_VOLUME);
     g_video_play = safeGetValue(result.video_play, DEFAULT_VIDEO_PLAY);
+    g_popup_link = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
 }
 
 function onChangeSetting(changes, areaName){
@@ -329,6 +343,7 @@ function onChangeSetting(changes, areaName){
     g_video_muted = safeGetValue(changes.video_muted.newValue, DEFAULT_VIDEO_MUTED);
     g_video_volume = safeGetValue(changes.video_volume.newValue, DEFAULT_VIDEO_VOLUME);
     g_video_play = safeGetValue(changes.video_play.newValue, DEFAULT_VIDEO_PLAY);
+    g_popup_link = safeGetValue(changes.popup_link.newValue, DEFAULT_POPUP_LINK);
 
     for(let i = 0; i < cell_map.length; ++i){
         cell_map[i].setting();
@@ -360,7 +375,7 @@ function onLoad(){
             continue;
         }
 
-        let dummy = document.createElement("div");
+        let dummy = document.createElement("a");
         td.appendChild(dummy);
 
         let a = a_list[0];
