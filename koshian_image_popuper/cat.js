@@ -134,7 +134,7 @@ class Cell{
             xhr.onerror = (e) => {this.onThreError(e)};
             xhr.ontimeout = (e) => {this.onThreTimeout(e)};
             xhr.send();
-            this.isLoading = true;
+            this.loading = true;
         }
     }
 
