@@ -3,7 +3,7 @@
 
     "name":"KOSHIAN カタログの画像をポップアップで表示 改",
 
-    "version":"1.0.1",
+    "version":"1.1.0",
 
     "description":"スレ画像をポップアップ表示します",
 
@@ -29,7 +29,8 @@
     
     "applications":{
         "gecko":{
-            "id":"{4B803436-E2DF-11E7-8568-2E3D1843E317}"
+            "id":"{4B803436-E2DF-11E7-8568-2E3D1843E317}",
+            "update_url": "https://raw.githubusercontent.com/akoya-tomo/koshian_image_popuper_kai/master/updates.json"
         }
     },
 
