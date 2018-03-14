@@ -88,6 +88,7 @@ class Cell{
         this.img.src = url;
         this.img.style.maxWidth = `${this.max_width}px`;
         this.img.style.maxHeight = `${this.max_height}px`;
+        this.img.style.backgroundColor = "#F0E0D6";
         this.popup.appendChild(this.img);
     }
 
