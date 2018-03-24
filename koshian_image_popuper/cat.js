@@ -10,6 +10,7 @@ const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
+const DEFAULT_REQUEST_TIME = 300;
 
 let g_media_max_width = DEFAULT_MEDIA_MAX_WIDTH;
 let g_media_max_height = DEFAULT_MEDIA_MAX_HEIGHT;
@@ -21,6 +22,7 @@ let g_video_play = DEFAULT_VIDEO_PLAY;
 let g_popup_time = DEFAULT_POPUP_TIME;
 let g_popup_thumbnail = DEFAULT_POPUP_THUMBNAIL;
 let g_popup_link = DEFAULT_POPUP_LINK;
+let g_request_time = DEFAULT_REQUEST_TIME;
 
 function getMediaUrl(thre_doc){
     let thre_list = thre_doc.getElementsByClassName("thre");
@@ -35,16 +37,7 @@ function getMediaUrl(thre_doc){
         return null;
     }
 
-    if (isImage(link_list[0].href) && g_popup_thumbnail) {
-        let thumbnail = thre.querySelector("img");
-        if (thumbnail) {
-            return thumbnail.src;
-        } else {
-            return null;
-        }
-    } else {
-        return link_list[0].href;
-    }
+    return link_list[0].href;
 }
 
 function isImage(url){
@@ -52,7 +45,7 @@ function isImage(url){
 }
 
 class Cell{
-    constructor(link, parent, target, index){
+    constructor(link, parent, target, img_src, index){
         this.link = link;
         this.popup = document.createElement("div");
         this.target = target;
@@ -64,8 +57,10 @@ class Cell{
         this.max_height = 0;
         this.mouseon = false;
         this.timer = false;
+        this.timer2 = false;
         this.parent = parent;
-        
+        this.img_src = img_src;
+
         this.popup.style.display = "none";
         this.popup.style.zIndex = 1;
         this.popup.setAttribute("KOSHIAN_INDEX", `${index}`);
@@ -130,7 +125,7 @@ class Cell{
 
     onNoimageLoad(e){
         let media_url = browser.extension.getURL("img/NoImage.png");
-//      console.log("cat.js : media_url = " + media_url);
+        //console.log("cat.js : media_url = " + media_url);
         this.setImage(media_url);
         this.loaded = true;
     }
@@ -144,7 +139,14 @@ class Cell{
     }
 
     load(){
-        if(!this.loaded && !this.loading){
+        if(this.loaded || this.loading) return;
+        if(g_popup_thumbnail){
+            let media_url = this.img_src.replace("/cat/","/thumb/");
+            if (media_url){
+                this.setImage(media_url);
+            }
+            this.loaded = true;
+        } else {
             let xhr = new XMLHttpRequest();
             xhr.responseType = "document";
             xhr.timeout = 60000;
@@ -164,7 +166,7 @@ class Cell{
     }
 
     show(){
-        if(!this.loaded){
+        if(!this.loaded && !this.loading){
             return;
         }
 
@@ -263,9 +265,20 @@ function onMouseEnter(e){
     }
 
     cell.mouseon = true;
+    g_request_time = Math.min(g_request_time, g_popup_time);
 
-    if(!cell.loaded){
-        cell.load();
+    if(!cell.timer2){
+        cell.timer2 = true;
+
+        setTimeout(() => {
+            cell.timer2 = false;
+
+            if(cell.mouseon){
+                if(!cell.loaded){
+                    cell.load();
+                }
+            }
+        }, g_request_time);
     }
 
     if(!cell.timer){
@@ -331,7 +344,7 @@ function safeGetValue(value, default_value){
 }
 
 function onGetSettings(result){
-    g_popup_time = safeGetValue(result.popup_time, DEFAULT_POPUP_TIME);
+    g_popup_time = Math.max(safeGetValue(result.popup_time, DEFAULT_POPUP_TIME), DEFAULT_REQUEST_TIME);
     g_media_max_width = safeGetValue(result.media_max_width, DEFAULT_MEDIA_MAX_WIDTH);
     g_media_max_height = safeGetValue(result.media_max_height, DEFAULT_MEDIA_MAX_HEIGHT);
     g_video_control = safeGetValue(result.video_control, DEFAULT_VIDEO_CONTROL);
@@ -393,8 +406,9 @@ function onLoad(){
         td.appendChild(dummy);
 
         let a = a_list[0];
+        let img_src = img_list[0].src;
 
-        cell_map.push(new Cell(a.href, dummy, a, map_index));
+        cell_map.push(new Cell(a.href, dummy, a, img_src, map_index));
         ++map_index;
     }
 }
