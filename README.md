@@ -1,9 +1,9 @@
 ##  KOSHIAN カタログの画像をポップアップで表示 改
-このFirefoxアドオンは[Pachira](https://addons.mozilla.org/ja/firefox/user/anonymous-a0bba9187b568f98732d22d51c5955a6/)氏の[KOSHIAN カタログの画像をポップアップで表示](https://addons.mozilla.org/ja/firefox/addon/koshian-image-popuper/)アドオンを改変したものです。  
+このFirefoxアドオンはふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示する[Pachira](https://addons.mozilla.org/ja/firefox/user/anonymous-a0bba9187b568f98732d22d51c5955a6/)氏の[KOSHIAN カタログの画像をポップアップで表示](https://addons.mozilla.org/ja/firefox/addon/koshian-image-popuper/)アドオンを改変したものです。  
 ポップアップのリンクを有効にするオプションやポップアップにスレ画像のサムネを使用するオプションなどをオリジナル版に追加しています。  
 
 ※このアドオンはWebExtensionアドオン対応のFirefox専用となります。  
-※他のKOSHIANアドオン改変版とUserscriptは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)の一覧からどうぞ。  
+※他のこしあんアドオン改変版とUserscriptは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)の一覧からどうぞ。  
 
 ## 機能
 * オリジナルの機能（KOSHIAN カタログの画像をポップアップで表示）
