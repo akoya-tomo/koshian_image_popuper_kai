@@ -56,8 +56,8 @@ class Cell{
         this.max_width = 0;
         this.max_height = 0;
         this.mouseon = false;
-        this.timer = false;
-        this.timer2 = false;
+        this.timer = null;
+        this.timer2 = null;
         this.parent = parent;
         this.img_src = img_src;
 
@@ -268,11 +268,8 @@ function onMouseEnter(e){
     g_request_time = Math.min(g_request_time, g_popup_time);
 
     if(!cell.timer2){
-        cell.timer2 = true;
-
-        setTimeout(() => {
-            cell.timer2 = false;
-
+        cell.timer2 = setTimeout(() => {
+            cell.timer2 = null;
             if(cell.mouseon){
                 if(!cell.loaded){
                     cell.load();
@@ -282,11 +279,8 @@ function onMouseEnter(e){
     }
 
     if(!cell.timer){
-        cell.timer = true;
-
-        setTimeout(() => {
-            cell.timer = false;
-            
+        cell.timer = setTimeout(() => {
+            cell.timer = null;
             if(cell.mouseon){
                 cell.show();
             }
@@ -302,6 +296,14 @@ function onMouseLeave(e){
     }
 
     cell.mouseon = false;
+    if (cell.timer2) {
+        clearTimeout(cell.timer2);
+        cell.timer2 = null;
+    }
+    if (cell.timer) {
+        clearTimeout(cell.timer);
+        cell.timer = null;
+    }
 
     cell.hide();
 }
