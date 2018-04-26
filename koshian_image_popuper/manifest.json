@@ -3,13 +3,17 @@
 
     "name":"KOSHIAN カタログの画像をポップアップで表示 改",
 
-    "version":"1.2.1",
+    "version":"1.3.0",
 
     "description":"スレ画像をポップアップ表示します",
 
     "icons":{
         "48":"icons/icon-48.png"
     },
+
+    "author": "akoya_tomo",
+
+    "homepage_url": "https://github.com/akoya-tomo/koshian_image_popuper_kai/",
 
     "content_scripts":[
         {

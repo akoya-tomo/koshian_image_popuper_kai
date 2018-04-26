@@ -10,6 +10,7 @@ const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
+const DEFAULT_POPUP_TEXT = false;
 const DEFAULT_REQUEST_TIME = 300;
 
 let g_media_max_width = DEFAULT_MEDIA_MAX_WIDTH;
@@ -22,22 +23,28 @@ let g_video_play = DEFAULT_VIDEO_PLAY;
 let g_popup_time = DEFAULT_POPUP_TIME;
 let g_popup_thumbnail = DEFAULT_POPUP_THUMBNAIL;
 let g_popup_link = DEFAULT_POPUP_LINK;
+let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_request_time = DEFAULT_REQUEST_TIME;
 
 function getMediaUrl(thre_doc){
     let thre_list = thre_doc.getElementsByClassName("thre");
     if(thre_list.length == 0){
-        return null;
+        return [null, ""];
     }
 
     let thre = thre_list[0];
 
     let link_list = thre.getElementsByTagName("a");
     if(link_list.length == 0){
-        return null;
+        return [null, ""];
     }
 
-    return link_list[0].href;
+    let text_list = thre.getElementsByTagName("blockquote");
+    if(text_list.length == 0){
+        return [link_list[0].href, ""];
+    }
+
+    return [link_list[0].href, text_list[0].textContent];
 }
 
 function isImage(url){
@@ -45,7 +52,7 @@ function isImage(url){
 }
 
 class Cell{
-    constructor(link, parent, target, img_src, index){
+    constructor(link, parent, target, img_src, text, res_num, index){
         this.link = link;
         this.popup = document.createElement("div");
         this.target = target;
@@ -56,15 +63,29 @@ class Cell{
         this.max_width = 0;
         this.max_height = 0;
         this.mouseon = false;
-        this.timer = null;
-        this.timer2 = null;
+        this.popup_timer = null;
+        this.request_timer = null;
+        this.loaded_timer = null;
         this.parent = parent;
         this.img_src = img_src;
+        this.text = document.createElement("div");
+        this.res_num = res_num;
 
         this.popup.style.display = "none";
         this.popup.style.zIndex = 1;
         this.popup.setAttribute("KOSHIAN_INDEX", `${index}`);
         parent.appendChild(this.popup);
+
+        this.text.textContent = res_num + text;
+        this.text.style.fontSize = "small";
+        this.text.style.color = "white";
+        this.text.style.backgroundColor = "blue";
+        this.text.style.borderStyle = "solid";
+        this.text.style.borderWidth = "0 1px";
+        this.text.style.borderColor = "blue";
+        this.text.style.overflow = "hidden";
+        this.text.style.whiteSpace = "nowrap";
+        this.text.style.textOverflow = "ellipsis";
 
         target.setAttribute("KOSHIAN_INDEX", `${index}`);
         target.addEventListener("mouseenter", onMouseEnter);
@@ -80,11 +101,20 @@ class Cell{
         }
 
         this.img = document.createElement("img");
+        this.img.onload = () => {
+            this.loaded = true;
+        };
         this.img.src = url;
         this.img.style.maxWidth = `${this.max_width}px`;
         this.img.style.maxHeight = `${this.max_height}px`;
         this.img.style.backgroundColor = "#F0E0D6";
+        this.img.style.border = "solid 1px blue";
         this.popup.appendChild(this.img);
+        if(g_popup_text){
+            this.img.style.minWidth = "100px";  //スレ本文文字数確保
+            this.popup.appendChild(document.createElement("br"));
+            this.popup.appendChild(this.text);
+        }
     }
 
     setVideo(url){
@@ -94,6 +124,9 @@ class Cell{
         }
 
         this.video = document.createElement("video");
+        this.video.onloadedmetadata = () => {
+            this.loaded = true;
+        };
         this.video.src = url;
         this.video.controls = g_video_control;
         this.video.loop = g_video_loop;
@@ -101,7 +134,13 @@ class Cell{
         this.video.volume = g_video_volume;
         this.video.style.maxWidth = `${this.max_width}px`;
         this.video.style.maxHeight = `${this.max_height}px`;
+        this.video.style.border = "solid 1px blue";
         this.popup.appendChild(this.video);
+        if(g_popup_text){
+            this.video.style.minWidth = "100px";  //スレ本文文字数確保
+            this.popup.appendChild(document.createElement("br"));
+            this.popup.appendChild(this.text);
+        }
 
         if(this.popup.style.display != "none" && g_video_play){
             this.video.play();
@@ -109,9 +148,13 @@ class Cell{
     }
 
     onThreLoad(doc){
-        let media_url = getMediaUrl(doc);
+        let [media_url, thre_text] = getMediaUrl(doc);
         if(media_url == null){
             return;
+        }
+
+        if(thre_text){
+            this.text.textContent = this.res_num + thre_text;
         }
 
         if(isImage(media_url)){
@@ -120,14 +163,14 @@ class Cell{
             this.setVideo(media_url);
         }
 
-        this.loaded = true;
+        //this.loaded = true;
     }
 
     onNoimageLoad(e){
         let media_url = browser.extension.getURL("img/NoImage.png");
         //console.log("cat.js : media_url = " + media_url);
         this.setImage(media_url);
-        this.loaded = true;
+        //this.loaded = true;
     }
 
     onThreError(e){
@@ -145,7 +188,7 @@ class Cell{
             if (media_url){
                 this.setImage(media_url);
             }
-            this.loaded = true;
+            //this.loaded = true;
         } else {
             let xhr = new XMLHttpRequest();
             xhr.responseType = "document";
@@ -166,7 +209,7 @@ class Cell{
     }
 
     show(){
-        if(!this.loaded && !this.loading){
+        if(!this.loaded){
             return;
         }
 
@@ -188,6 +231,12 @@ class Cell{
             this.popup.style.left = null;
             this.popup.style.right = `${clientW - ccx}px`;
             max_popup_width = cx;
+            if(this.img){
+                this.img.style.cssFloat = "right";
+            }else if(this.video){
+                this.video.style.cssFloat = "right";
+            }
+            this.text.style.cssFloat = "right";
         }
         
         if(cy < clientH/2){
@@ -209,9 +258,13 @@ class Cell{
         if(this.img){
             this.img.style.maxWidth = `${this.max_width}px`;
             this.img.style.maxHeight = `${this.max_height}px`;
+            this.text.style.maxWidth = `${this.max_width}px`;
+            this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
         }else if(this.video){
             this.video.style.maxWidth = `${this.max_width}px`;
             this.video.style.maxHeight = `${this.max_height}px`;
+            this.text.style.maxWidth = `${this.max_width}px`;
+            this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
         }
 
         if(this.video && g_video_play){
@@ -267,9 +320,9 @@ function onMouseEnter(e){
     cell.mouseon = true;
     g_request_time = Math.min(g_request_time, g_popup_time);
 
-    if(!cell.timer2){
-        cell.timer2 = setTimeout(() => {
-            cell.timer2 = null;
+    if(!cell.request_timer){
+        cell.request_timer = setTimeout(() => {
+            cell.request_timer = null;
             if(cell.mouseon){
                 if(!cell.loaded){
                     cell.load();
@@ -278,11 +331,17 @@ function onMouseEnter(e){
         }, g_request_time);
     }
 
-    if(!cell.timer){
-        cell.timer = setTimeout(() => {
-            cell.timer = null;
-            if(cell.mouseon){
-                cell.show();
+    if(!cell.popup_timer){
+        cell.popup_timer = setTimeout(() => {
+            cell.popup_timer = null;
+            if(!cell.loaded_timer){
+                cell.loaded_timer = setInterval(() => {
+                    if(cell.loaded){
+                        clearInterval(cell.loaded_timer);
+                        cell.loaded_timer = null;
+                        cell.show();
+                    }
+                }, 10);
             }
         }, g_popup_time);
     }
@@ -296,13 +355,17 @@ function onMouseLeave(e){
     }
 
     cell.mouseon = false;
-    if (cell.timer2) {
-        clearTimeout(cell.timer2);
-        cell.timer2 = null;
+    if (cell.loaded_timer) {
+        clearInterval(cell.loaded_timer);
+        cell.loaded_timer = null;
     }
-    if (cell.timer) {
-        clearTimeout(cell.timer);
-        cell.timer = null;
+    if (cell.request_timer) {
+        clearTimeout(cell.request_timer);
+        cell.request_timer = null;
+    }
+    if (cell.popup_timer) {
+        clearTimeout(cell.popup_timer);
+        cell.popup_timer = null;
     }
 
     cell.hide();
@@ -356,6 +419,7 @@ function onGetSettings(result){
     g_video_play = safeGetValue(result.video_play, DEFAULT_VIDEO_PLAY);
     g_popup_thumbnail = safeGetValue(result.popup_thumbnail, DEFAULT_POPUP_THUMBNAIL);
     g_popup_link = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
+    g_popup_text = safeGetValue(result.popup_text, DEFAULT_POPUP_TEXT);
 }
 
 function onChangeSetting(changes, areaName){
@@ -373,6 +437,7 @@ function onChangeSetting(changes, areaName){
     g_video_play = safeGetValue(changes.video_play.newValue, DEFAULT_VIDEO_PLAY);
     g_popup_thumbnail = safeGetValue(changes.popup_thumbnail.newValue, DEFAULT_POPUP_THUMBNAIL);
     g_popup_link = safeGetValue(changes.popup_link.newValue, DEFAULT_POPUP_LINK);
+    g_popup_text = safeGetValue(changes.popup_text.newValue, DEFAULT_POPUP_TEXT);
 
     for(let i = 0; i < cell_map.length; ++i){
         cell_map[i].setting();
@@ -399,6 +464,8 @@ function onLoad(){
         let td = td_list[i];
         let a_list = td.getElementsByTagName("a");
         let img_list = td.getElementsByTagName("img");
+        let small_list = td.getElementsByTagName("small");
+        let font_list = td.getElementsByTagName("font");
 
         if(a_list.length == 0 || img_list.length == 0){
             continue;
@@ -409,8 +476,16 @@ function onLoad(){
 
         let a = a_list[0];
         let img_src = img_list[0].src;
+        let small = "";
+        if(small_list.length){
+            small = small_list[0].textContent;
+        }
+        let font = "";
+        if(font_list.length){
+            font = "(" + font_list[0].textContent + ")";
+        }
 
-        cell_map.push(new Cell(a.href, dummy, a, img_src, map_index));
+        cell_map.push(new Cell(a.href, dummy, a, img_src, small, font, map_index));
         ++map_index;
     }
 }
