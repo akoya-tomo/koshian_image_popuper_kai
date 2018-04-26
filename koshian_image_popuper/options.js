@@ -8,6 +8,7 @@ const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
+const DEFAULT_POPUP_TEXT = false;
 
 function onError(error) {
 }
@@ -33,7 +34,8 @@ function saveOptions(e) {
     video_play: document.querySelector("#video_play").checked,
     video_volume: document.querySelector("#video_volume").value,
     popup_thumbnail: document.querySelector("#popup_thumbnail").checked,
-    popup_link: document.querySelector("#popup_link").checked
+    popup_link: document.querySelector("#popup_link").checked,
+    popup_text: document.querySelector("#popup_text").checked
   });
 }
 
@@ -48,6 +50,7 @@ function setCurrentChoice(result) {
   document.querySelector("#video_volume").value = safeGetValue(result.video_volume, DEFAULT_VIDEO_VOLUME);
   document.querySelector("#popup_thumbnail").checked = safeGetValue(result.popup_thumbnail, DEFAULT_POPUP_THUMBNAIL);
   document.querySelector("#popup_link").checked = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
+  document.querySelector("#popup_text").checked = safeGetValue(result.popup_text, DEFAULT_POPUP_TEXT);
 }
 
 function restoreOptions() {
