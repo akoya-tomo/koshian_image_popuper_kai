@@ -9,6 +9,7 @@ const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
 const DEFAULT_POPUP_TEXT = false;
+const DEFAULT_REQUEST_TIME = 300;
 
 function onError(error) {
 }
@@ -40,7 +41,7 @@ function saveOptions(e) {
 }
 
 function setCurrentChoice(result) {
-  document.querySelector("#popup_time").value = safeGetValue(result.popup_time, DEFAULT_POPUP_TIME);
+  document.querySelector("#popup_time").value = Math.max(safeGetValue(result.popup_time, DEFAULT_POPUP_TIME), DEFAULT_REQUEST_TIME);
   document.querySelector("#media_max_width").value = safeGetValue(result.media_max_width, DEFAULT_MEDIA_MAX_WIDTH);
   document.querySelector("#media_max_height").value = safeGetValue(result.media_max_height, DEFAULT_MEDIA_MAX_HEIGHT);
   document.querySelector("#video_control").checked = safeGetValue(result.video_control, DEFAULT_VIDEO_CONTROL);
