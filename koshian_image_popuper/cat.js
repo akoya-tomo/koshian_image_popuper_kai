@@ -72,7 +72,7 @@ class Cell{
         this.res_num = res_num;
 
         this.popup.style.display = "none";
-        this.popup.style.zIndex = 1;
+        this.popup.style.zIndex = 100;
         this.popup.setAttribute("KOSHIAN_INDEX", `${index}`);
         parent.appendChild(this.popup);
 
