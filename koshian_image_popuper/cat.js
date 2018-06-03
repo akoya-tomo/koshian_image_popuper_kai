@@ -48,7 +48,7 @@ function getMediaUrl(thre_doc){
 }
 
 function isImage(url){
-    return url.search(/\.webm/) == -1;
+    return url.search(/\.webm|\.mp4/) == -1;
 }
 
 class Cell{
@@ -111,7 +111,7 @@ class Cell{
         this.img.style.border = "solid 1px blue";
         this.popup.appendChild(this.img);
         if(g_popup_text){
-            this.img.style.minWidth = "100px";  //ƒXƒŒ–{•¶•¶š”Šm•Û
+            this.img.style.minWidth = "100px";  //ã‚¹ãƒ¬æœ¬æ–‡æ–‡å­—æ•°ç¢ºä¿
             this.popup.appendChild(document.createElement("br"));
             this.popup.appendChild(this.text);
         }
@@ -137,7 +137,7 @@ class Cell{
         this.video.style.border = "solid 1px blue";
         this.popup.appendChild(this.video);
         if(g_popup_text){
-            this.video.style.minWidth = "100px";  //ƒXƒŒ–{•¶•¶š”Šm•Û
+            this.video.style.minWidth = "100px";  //ã‚¹ãƒ¬æœ¬æ–‡æ–‡å­—æ•°ç¢ºä¿
             this.popup.appendChild(document.createElement("br"));
             this.popup.appendChild(this.text);
         }
