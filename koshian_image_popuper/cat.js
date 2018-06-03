@@ -48,7 +48,7 @@ function getMediaUrl(thre_doc){
 }
 
 function isImage(url){
-    return url.search(/\.webm/) == -1;
+    return url.search(/\.webm|\.mp4/) == -1;
 }
 
 class Cell{
