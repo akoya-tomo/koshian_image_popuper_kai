@@ -24,7 +24,7 @@
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
 
 ## インストール
-[GitHub](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.3.1/koshian_image_popuper_kai-1.3.1-an.fx.xpi)  
+[GitHub](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.4.0/koshian_image_popuper_kai-1.4.0-an.fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時はリンクを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -44,6 +44,8 @@
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.4.0 2018-06-04
+  - MP4のポップアップに対応
 * v1.3.1 2018-06-01
   - 赤福でポップアップが最前面になるように修正
 * v1.3.0 2018-04-26
