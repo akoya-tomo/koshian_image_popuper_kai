@@ -19,7 +19,8 @@
         {
             "exclude_matches": ["*://*.2chan.net/*/res/**","*://*.2chan.net/*/src/*"],
             "matches":["*://*.2chan.net/*/*"],
-            "js":["cat.js"]
+            "js":["cat.js"],
+            "all_frames": true
         }
     ],
     
