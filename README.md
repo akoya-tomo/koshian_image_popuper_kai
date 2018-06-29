@@ -1,9 +1,9 @@
-##  KOSHIAN カタログの画像をポップアップで表示 改
-このFirefoxアドオンはふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示する[Pachira](https://addons.mozilla.org/ja/firefox/user/anonymous-a0bba9187b568f98732d22d51c5955a6/)氏の[KOSHIAN カタログの画像をポップアップで表示](https://addons.mozilla.org/ja/firefox/addon/koshian-image-popuper/)アドオンを改変したものです。  
+## <sub><img src="koshian_image_popuper/icons/icon-48.png"></sub> KOSHIAN カタログの画像をポップアップで表示 改
+このFirefoxアドオンはふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示する[Pachira](https://addons.mozilla.org/ja/firefox/user/anonymous-a0bba9187b568f98732d22d51c5955a6/)氏の[KOSHIAN カタログの画像をポップアップで表示](https://addons.mozilla.org/ja/firefox/addon/koshian-image-popuper/)の非公式改変版です。  
 ポップアップにスレ本文を表示する機能やポップアップをクリックしてスレを開く機能などをオリジナル版に追加しています。  
 
 ※このアドオンはWebExtensionアドオン対応のFirefox専用となります。  
-※他のこしあんアドオン改変版とUserscriptは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)の一覧からどうぞ。  
+※他のKOSHIAN改変版などのふたば支援ツールは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)。  
 
 ## 機能
 * オリジナルの機能（KOSHIAN カタログの画像をポップアップで表示）
@@ -24,7 +24,8 @@
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
 
 ## インストール
-[GitHub](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.4.0/koshian_image_popuper_kai-1.4.0-an.fx.xpi)  
+**GitHub**  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.4.1/koshian_image_popuper_kai-1.4.1-an.fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時はリンクを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -34,8 +35,7 @@
 * スレ本文表示時は文字数確保のため、ポップアップの最小横幅が100pxになります。
 
 ## 注意事項
-* このアドオンはWebExtensionアドオン対応のFirefox専用です。  
-* 本アドオンを有効化したときはオリジナル版を無効化または削除して下さい。  
+* 本アドオンを有効にしたときはオリジナル版を無効にするか削除して下さい。  
 * オリジナル版とは別アドオンなので設定は初期値に戻ります。  
   再度設定をお願い致します。  
 * [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)スクリプトを使用する場合は必ずfutaba catalog NG v1.2.6以上をインストールして下さい。
@@ -44,6 +44,8 @@
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.4.1 2018-06-29
+  - フレーム表示のカタログで動作するように修正
 * v1.4.0 2018-06-04
   - mp4のポップアップに対応
 * v1.3.1 2018-06-01
