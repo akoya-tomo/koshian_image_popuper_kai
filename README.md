@@ -1,33 +1,41 @@
 ## <sub><img src="koshian_image_popuper/icons/icon-48.png"></sub> KOSHIAN カタログの画像をポップアップで表示 改
+
 このFirefoxアドオンはふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示する[Pachira](https://addons.mozilla.org/ja/firefox/user/anonymous-a0bba9187b568f98732d22d51c5955a6/)氏の[KOSHIAN カタログの画像をポップアップで表示](https://addons.mozilla.org/ja/firefox/addon/koshian-image-popuper/)の非公式改変版です。  
 ポップアップにスレ本文を表示する機能やポップアップをクリックしてスレを開く機能などをオリジナル版に追加しています。  
 
 ※このアドオンはWebExtensionアドオン対応のFirefox専用となります。  
-※他のKOSHIAN改変版などのふたば支援ツールは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)。  
+※他のKOSHIAN改変版などのふたば閲覧支援ツールは[こちら](https://github.com/akoya-tomo/futaba_auto_reloader_K/wiki/)。  
 
 ## 機能
 * オリジナルの機能（KOSHIAN カタログの画像をポップアップで表示）
-  - ふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示
+  - ふたば☆ちゃんねるのカタログのスレ画像をポップアップ表示   
+    ポップアップの最大サイズはカスタマイズできます。（デフォルト：400px × 400px）  
+    ![スクリーンショット](images/screenshot01.png "スクリーンショット")  
+    　  
+    動画もポップアップ上で再生できます。  
+    ![スクリーンショット](images/screenshot02.png "スクリーンショット")  
 * 追加・修正された機能（KOSHIAN カタログの画像をポップアップで表示 改）
   - ポップアップにスレ本文を表示する（デフォルト：無効）  
-  有効にするとポップアップ画像の下にスレ本文とレス数が表示されます。  
-  サムネ使用時はスレ本文の表示文字数はカタログ設定文字数となります。
+    ポップアップ画像の下にスレ本文とレス数が表示されます。  
+    ![スクリーンショット](images/screenshot03.png "スクリーンショット")  
+    サムネ使用時はスレ本文の表示文字数はカタログ設定文字数となります。  
   - ポップアップのリンクを有効にする（デフォルト：無効）  
-  ポップアップをクリックしてスレを開くことができます。  
-  WebM・mp4は「動画のコントロールを表示」オプションが無効のときのみリンクが有効になります。  
+    ポップアップをクリックしてスレを開くことができます。  
+    WebM・mp4は「動画のコントロールを表示」オプションが無効のときのみリンクが有効になります。  
   - ポップアップにスレ画像のサムネを使用する（デフォルト：無効）  
-  有効にするとポップアップにスレ画像のサムネを使用します。ポップアップの読み込みが重いときに効果が期待できます。WebM・mp4はサムネが表示されポップアップ上では動画再生できません。  
-  無効にするとオリジナルサイズのスレ画像を使用します。  
+    ポップアップにスレ画像のサムネを使用します。サムネはファイルサイズが小さいのでポップアップの読み込みが遅いときに効果を期待できます。WebM・mp4はサムネが表示されポップアップ上では動画再生できません。  
+    無効にするとオリジナルサイズのスレ画像を使用します。  
   - スレ画像が404エラー\(Not Found\)の時にNoImage画像を表示  
-  ポップアップ画像を読み込むときにスレが消えていたらNoImage画像が表示されます。  
+    ポップアップ画像を読み込むときにスレが消えていたらNoImage画像が表示されます。  
+    ![スクリーンショット](images/screenshot04.png "スクリーンショット")  
   - 過剰なリクエストの抑制  
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.4.1/koshian_image_popuper_kai-1.4.1-an.fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.0/koshian_image_popuper_kai-1.5.0-an.fx.xpi)  
 
-※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時はリンクを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
+※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
 ## 追加機能の補足
 * スレ本文がポップアップ画像の横幅をはみ出る場合は省略されます。  
@@ -38,12 +46,15 @@
 * 本アドオンを有効にしたときはオリジナル版を無効にするか削除して下さい。  
 * オリジナル版とは別アドオンなので設定は初期値に戻ります。  
   再度設定をお願い致します。  
-* [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)スクリプトを使用する場合は必ずfutaba catalog NG v1.2.6以上をインストールして下さい。
+* [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)を使用する場合は必ずfutaba catalog NG v1.2.6以上をインストールして下さい。
+* [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K rev13以上をインストールして下さい。
 
 ## 既知の問題
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.5.0 2018-07-06
+  - [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップするように修正
 * v1.4.1 2018-06-29
   - フレーム表示のカタログで動作するように修正
 * v1.4.0 2018-06-04
