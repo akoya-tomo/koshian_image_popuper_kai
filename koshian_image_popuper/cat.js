@@ -396,6 +396,47 @@ function isCatalog(){
     return (window.location.search.search(/mode=cat/) != -1);
 }
 
+function setCellMap(target_list, name, index) {
+    // target_list : cell_mapに登録対象スレの要素リスト
+    // name : スレ本文のtagNameまたはclassName
+    // index : 実行前のcell_mapに登録されているcell数
+
+    let hasClass = name.charAt(0) == ".";
+    // nameの先頭が"."ならclassNameとして処理
+    if(hasClass) name = name.substr(1);
+
+    for(let i = 0; i < target_list.length; ++i){
+        let target = target_list[i];
+        let a_list = target.getElementsByTagName("a");
+        let img_list = target.getElementsByTagName("img");
+        let comment_list = hasClass ? target.getElementsByClassName(name) : target.getElementsByTagName(name);
+        let font_list = target.getElementsByTagName("font");
+
+        if(a_list.length == 0 || img_list.length == 0){
+            continue;
+        }
+
+        let dummy = document.createElement("a");
+        target.appendChild(dummy);
+
+        let a = a_list[0];
+        let img_src = img_list[0].src;
+        let comment = "";
+        if(comment_list.length){
+            comment = comment_list[0].textContent;
+        }
+        let font = "";
+        if(font_list.length){
+            font = "(" + font_list[0].textContent + ")";
+        }
+
+        cell_map.push(new Cell(a.href, dummy, a, img_src, comment, font, index));
+        ++index;
+    }
+    // 戻り値 : 実行後のcell_mapに登録されているcell数
+    return index;
+}
+
 
 function onError(error){    
 }
@@ -444,6 +485,8 @@ function onChangeSetting(changes, areaName){
     }
 }
 
+let map_index = 0;
+
 function onLoad(){
     if(!isCatalog()){
         return;
@@ -458,35 +501,26 @@ function onLoad(){
         return;
     }
 
-    let map_index = 0;
+    map_index = setCellMap(td_list, "small", 0);
+ 
+    setPickupCell();
 
-    for(let i = 0; i < td_list.length; ++i){
-        let td = td_list[i];
-        let a_list = td.getElementsByTagName("a");
-        let img_list = td.getElementsByTagName("img");
-        let small_list = td.getElementsByTagName("small");
-        let font_list = td.getElementsByTagName("font");
+    document.addEventListener("FutabaTH_pickup", (e) => {
+        cell_map.splice(map_index); //cell_mapからfutaba thread highlighter Kのピックアップ内のcellをクリア
+        setPickupCell();
+    });
 
-        if(a_list.length == 0 || img_list.length == 0){
-            continue;
+    function setPickupCell() {
+        // futaba thread highlighter Kのピックアップスレをcell_mapに登録
+        let pickup_index = map_index;
+        let pickup_list = document.getElementsByClassName("GM_fth_pickuped");
+        if (pickup_list.length) {
+            pickup_index = setCellMap(pickup_list, ".GM_fth_pickuped_caption", pickup_index);
         }
-
-        let dummy = document.createElement("a");
-        td.appendChild(dummy);
-
-        let a = a_list[0];
-        let img_src = img_list[0].src;
-        let small = "";
-        if(small_list.length){
-            small = small_list[0].textContent;
+        let opened_list = document.getElementsByClassName("GM_fth_opened");
+        if (opened_list.length) {
+            setCellMap(opened_list, ".GM_fth_opened_caption", pickup_index);
         }
-        let font = "";
-        if(font_list.length){
-            font = "(" + font_list[0].textContent + ")";
-        }
-
-        cell_map.push(new Cell(a.href, dummy, a, img_src, small, font, map_index));
-        ++map_index;
     }
 }
 
