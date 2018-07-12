@@ -104,6 +104,12 @@ class Cell{
         this.img.onload = () => {
             this.loaded = true;
         };
+        this.img.onerror = () => {
+            this.img.onerror = null;
+            this.img.src = browser.extension.getURL("img/NoImage.png");
+            this.loaded = true;
+            this.img.error = true;
+        };
         this.img.src = url;
         this.img.style.maxWidth = `${this.max_width}px`;
         this.img.style.maxHeight = `${this.max_height}px`;
@@ -166,19 +172,27 @@ class Cell{
         //this.loaded = true;
     }
 
-    onNoimageLoad(e){
-        let media_url = browser.extension.getURL("img/NoImage.png");
+    onThreNotFound(e){
+        let media_url = browser.extension.getURL("img/ThreadNotFound.png");
         //console.log("cat.js : media_url = " + media_url);
         this.setImage(media_url);
         //this.loaded = true;
     }
 
     onThreError(e){
-        this.loading = false;
+        let media_url = browser.extension.getURL("img/Error.png");
+        this.setImage(media_url);
+        //this.loading = false;
+        this.img.error = true;
+        console.log("KOSHIAN_image_popuper/cat.js onThreError(e):");
+        console.dir(e);
     }
 
     onThreTimeout(e){
-        this.loading = false;
+        let media_url = browser.extension.getURL("img/TimeOut.png");
+        this.setImage(media_url);
+        this.img.error = true;
+        //this.loading = false;
     }
 
     load(){
@@ -198,7 +212,7 @@ class Cell{
                                    this.onThreLoad(xhr.responseXML);
                                  }
                                  if(xhr.status == 404){
-                                   this.onNoimageLoad(e);
+                                   this.onThreNotFound(e);
                                  }
                                 };
             xhr.onerror = (e) => {this.onThreError(e)};
@@ -278,6 +292,15 @@ class Cell{
         }
 
         this.popup.style.display = "none";
+
+        if(this.img && this.img.error){
+            this.img = null;
+            while(this.popup.firstChild){
+                this.popup.removeChild(this.popup.firstChild);
+            }
+            this.loading = false;
+            this.loaded = false;
+        }
     }
 
     setting(){
