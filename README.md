@@ -25,15 +25,17 @@
   - ポップアップにスレ画像のサムネを使用する（デフォルト：無効）  
     ポップアップにスレ画像のサムネを使用します。サムネはファイルサイズが小さいのでポップアップの読み込みが遅いときに効果を期待できます。WebM・mp4はサムネが表示されポップアップ上では動画再生できません。  
     無効にするとオリジナルサイズのスレ画像を使用します。  
-  - スレ画像が404エラー\(Not Found\)の時にNoImage画像を表示  
-    ポップアップ画像を読み込むときにスレが消えていたらNoImage画像が表示されます。  
-    ![スクリーンショット](images/screenshot04.png "スクリーンショット")  
+  - スレ画像の読み込みエラーのときにエラー画像をポップアップ表示  
+    ポップアップ画像を読み込むときに画像削除やスレ消滅などで読み込めなかったときはエラー画像が表示されます。  
+    ![スレ画像削除エラー画像](koshian_image_popuper/img/NoImage.png "スレ画像削除エラー画像")　![スレ消滅エラー画像](koshian_image_popuper/img/ThreadNotFound.png "スレ消滅エラー画像")　![読込エラー画像](koshian_image_popuper/img/Error.png "読込エラー画像")　![読込タイムアウト画像](koshian_image_popuper/img/TimeOut.png "読込タイムアウト画像")   
+    左から「スレ画像削除」「スレ消滅」「読込エラー」「読込タイムアウト」のエラー画像です。  
+    サムネ使用時はエラーの種類に関わらず「スレ画像削除」のエラー画像が表示されます。  
   - 過剰なリクエストの抑制  
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.0/koshian_image_popuper_kai-1.5.0-an.fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.1/koshian_image_popuper_kai-1.5.1-an+fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -46,13 +48,15 @@
 * 本アドオンを有効にしたときはオリジナル版を無効にするか削除して下さい。  
 * オリジナル版とは別アドオンなので設定は初期値に戻ります。  
   再度設定をお願い致します。  
-* [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)を使用する場合は必ずfutaba catalog NG v1.2.6以上をインストールして下さい。
-* [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K rev13以上をインストールして下さい。
+* [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)を使用する場合は必ずfutaba catalog NG **v1.2.6以上**をインストールして下さい。
+* [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 既知の問題
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.5.1 2018-07-09
+  - スレ画像読込時のエラー画像を追加・変更
 * v1.5.0 2018-07-06
   - [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップするように修正
 * v1.4.1 2018-06-29
