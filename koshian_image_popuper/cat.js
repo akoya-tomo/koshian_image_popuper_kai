@@ -533,6 +533,33 @@ function onLoad(){
         setPickupCell();
     });
 
+    let target = document.getElementById("akahuku_catalog_reload_status");
+    if (target) {
+        checkAkahukuReload();
+    } else {
+        document.addEventListener("AkahukuContentApplied", () => {
+            target = document.getElementById("akahuku_catalog_reload_status");
+            if (target) checkAkahukuReload();
+        });
+    }
+
+    let status = "";
+    function checkAkahukuReload() {
+        let config = { childList: true };
+        let observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (target.textContent == status) return;
+                status = target.textContent;
+                if (status == "完了しました" || status == "アンドゥしました" || status == "リドゥしました") {
+                    cell_map = [];
+                    map_index = setCellMap(td_list, "small", 0);
+                    setPickupCell();
+                }
+            });
+        });
+        observer.observe(target, config);
+    }
+
     function setPickupCell() {
         // futaba thread highlighter Kのピックアップスレをcell_mapに登録
         let pickup_index = map_index;
