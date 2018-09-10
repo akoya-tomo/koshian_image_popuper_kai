@@ -268,6 +268,7 @@ class Cell{
 
         this.popup.style.display = "block";
         this.popup.style.position = "absolute";
+        this.popup.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.5)";
 
         if(this.img){
             this.img.style.maxWidth = `${this.max_width}px`;
