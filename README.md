@@ -35,7 +35,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.1/koshian_image_popuper_kai-1.5.1-an+fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.2/koshian_image_popuper_kai-1.5.2-an+fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -55,6 +55,9 @@
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.5.2 2018-09-11
+  - [赤福Extended](https://toshiakisp.github.io/akahuku-firefox-sp/)で「最新に更新」したときに新着スレの画像がポップアップしない不具合を修正
+  - ポップアップのスタイル修正
 * v1.5.1 2018-07-09
   - スレ画像読込時のエラー画像を追加・変更
 * v1.5.0 2018-07-06
