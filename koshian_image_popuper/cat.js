@@ -184,7 +184,7 @@ class Cell{
         this.setImage(media_url);
         //this.loading = false;
         this.img.error = true;
-        console.log("KOSHIAN_image_popuper/cat.js onThreError(e):");
+        console.log("KOSHIAN_image_popuper/cat.js - onThreError(e):");
         console.dir(e);
     }
 
@@ -215,8 +215,8 @@ class Cell{
                                    this.onThreNotFound(e);
                                  }
                                 };
-            xhr.onerror = (e) => {this.onThreError(e)};
-            xhr.ontimeout = (e) => {this.onThreTimeout(e)};
+            xhr.onerror = (e) => {this.onThreError(e);};
+            xhr.ontimeout = (e) => {this.onThreTimeout(e);};
             xhr.send();
             this.loading = true;
         }
@@ -420,11 +420,14 @@ function isCatalog(){
     return (window.location.search.search(/mode=cat/) != -1);
 }
 
+/**
+ * cell_mapにスレを登録
+ * @param {Array.<Element>} target_list cell_mapに登録対象スレの要素リスト
+ * @param {string} name スレ本文のtagNameまたはclassName（classNameは先頭に"."が設定されている）
+ * @param {number} index 実行前のcell_mapに登録されているcell数
+ * @return {number} 実行後のcell_mapに登録されているcell数
+ */ 
 function setCellMap(target_list, name, index) {
-    // target_list : cell_mapに登録対象スレの要素リスト
-    // name : スレ本文のtagNameまたはclassName
-    // index : 実行前のcell_mapに登録されているcell数
-
     let hasClass = name.charAt(0) == ".";
     // nameの先頭が"."ならclassNameとして処理
     if(hasClass) name = name.substr(1);
@@ -457,7 +460,6 @@ function setCellMap(target_list, name, index) {
         cell_map.push(new Cell(a.href, dummy, a, img_src, comment, font, index));
         ++index;
     }
-    // 戻り値 : 実行後のcell_mapに登録されているcell数
     return index;
 }
 
@@ -529,8 +531,8 @@ function onLoad(){
  
     setPickupCell();
 
-    document.addEventListener("FutabaTH_pickup", (e) => {
-        cell_map.splice(map_index); //cell_mapからfutaba thread highlighter Kのピックアップ内のcellをクリア
+    document.addEventListener("FutabaTH_pickup", () => {
+        cell_map.splice(map_index); // cell_mapからfutaba thread highlighter Kのピックアップ内のcellをクリア
         setPickupCell();
     });
 
