@@ -95,9 +95,12 @@ class Cell{
     }
 
     setImage(url){
+        this.parent.href = this.target;
+        this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.href = this.target;
-            this.parent.target = "_blank";
+            this.parent.onclick = null;
+        } else {
+            this.parent.onclick = (e) => {e.preventDefault();};
         }
 
         this.img = document.createElement("img");
@@ -124,9 +127,12 @@ class Cell{
     }
 
     setVideo(url){
+        this.parent.href = this.target;
+        this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.href = this.target;
-            this.parent.target = "_blank";
+            this.parent.onclick = null;
+        } else {
+            this.parent.onclick = (e) => {e.preventDefault();};
         }
 
         this.video = document.createElement("video");
