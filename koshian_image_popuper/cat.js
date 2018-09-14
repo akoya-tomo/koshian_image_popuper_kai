@@ -542,6 +542,7 @@ function onLoad(){
         setPickupCell();
     });
 
+    let status = "";
     let target = document.getElementById("akahuku_catalog_reload_status");
     if (target) {
         checkAkahukuReload();
@@ -552,7 +553,6 @@ function onLoad(){
         });
     }
 
-    let status = "";
     function checkAkahukuReload() {
         let config = { childList: true };
         let observer = new MutationObserver(function(mutations) {
