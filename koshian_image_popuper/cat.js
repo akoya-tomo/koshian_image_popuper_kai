@@ -98,7 +98,10 @@ class Cell{
         this.parent.href = this.target;
         this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.onclick = null;
+            this.parent.onclick = (e) => {
+                e.preventDefault();
+                this.target.click();
+            };
         } else {
             this.parent.onclick = (e) => {e.preventDefault();};
         }
@@ -130,7 +133,10 @@ class Cell{
         this.parent.href = this.target;
         this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.onclick = null;
+            this.parent.onclick = (e) => {
+                e.preventDefault();
+                this.target.click();
+            };
         } else {
             this.parent.onclick = (e) => {e.preventDefault();};
         }
@@ -542,6 +548,7 @@ function onLoad(){
         setPickupCell();
     });
 
+    let status = "";
     let target = document.getElementById("akahuku_catalog_reload_status");
     if (target) {
         checkAkahukuReload();
@@ -552,7 +559,6 @@ function onLoad(){
         });
     }
 
-    let status = "";
     function checkAkahukuReload() {
         let config = { childList: true };
         let observer = new MutationObserver(function(mutations) {

@@ -35,7 +35,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.3/koshian_image_popuper_kai-1.5.3-an+fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.4/koshian_image_popuper_kai-1.5.4-an+fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -55,6 +55,8 @@
 * スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
 
 ## 更新履歴
+* v1.5.4 2018-09-16
+  - 赤福Extendedで既に開いているスレをポップアップのリンクから開いたときに別のタブに開かないように修正
 * v1.5.3 2018-09-14
   - 「ポップアップのリンクを有効にする」オプションが無効でも[KOSHIAN delフォームをポップアップで開く 改](https://github.com/akoya-tomo/koshian_del_kai/)がポップアップ上でdelフォームを開けるように修正
 * v1.5.2 2018-09-11
