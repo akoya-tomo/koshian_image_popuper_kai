@@ -98,7 +98,10 @@ class Cell{
         this.parent.href = this.target;
         this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.onclick = null;
+            this.parent.onclick = (e) => {
+                e.preventDefault();
+                this.target.click();
+            };
         } else {
             this.parent.onclick = (e) => {e.preventDefault();};
         }
@@ -130,7 +133,10 @@ class Cell{
         this.parent.href = this.target;
         this.parent.target = "_blank";
         if (g_popup_link) {
-            this.parent.onclick = null;
+            this.parent.onclick = (e) => {
+                e.preventDefault();
+                this.target.click();
+            };
         } else {
             this.parent.onclick = (e) => {e.preventDefault();};
         }
