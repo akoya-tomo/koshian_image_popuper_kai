@@ -27,24 +27,29 @@ let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_request_time = DEFAULT_REQUEST_TIME;
 
 function getMediaUrl(thre_doc){
-    let thre_list = thre_doc.getElementsByClassName("thre");
-    if(thre_list.length == 0){
+    let thre = thre_doc.getElementsByClassName("thre")[0];
+    if(!thre){
         return [null, ""];
     }
 
-    let thre = thre_list[0];
-
-    let link_list = thre.getElementsByTagName("a");
-    if(link_list.length == 0){
+    let anchor = thre.getElementsByTagName("a")[0];
+    if(!anchor){
         return [null, ""];
     }
 
-    let text_list = thre.getElementsByTagName("blockquote");
-    if(text_list.length == 0){
-        return [link_list[0].href, ""];
+    let blockquote = thre.getElementsByTagName("blockquote")[0];
+    if(!blockquote){
+        return [anchor.href, ""];
     }
 
-    return [link_list[0].href, text_list[0].textContent];
+    let text = blockquote.textContent;
+    let mail = thre.querySelector(".thre > font > b > a");
+    if (mail && mail.href.indexOf("%E3%83%BB3%E3%83%BB") > -1) {
+        // メール欄に「・3・」が含まれるなら本文先頭がIPなので削除
+        text = text.replace(/^\[\S+?\]/, "");
+    }
+
+    return [anchor.href, text];
 }
 
 function isImage(url){
