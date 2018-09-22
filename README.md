@@ -35,7 +35,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.4/koshian_image_popuper_kai-1.5.4-an+fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.5/koshian_image_popuper_kai-1.5.5-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -51,10 +51,9 @@
 * [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)を使用する場合は必ずfutaba catalog NG **v1.2.6以上**をインストールして下さい。
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
-## 既知の問題
-* スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう。  
-
 ## 更新履歴
+* v1.5.5 2018-09-23
+  - スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう不具合を修正
 * v1.5.4 2018-09-16
   - 赤福Extendedで既に開いているスレをポップアップのリンクから開いたときに別のタブに開かないように修正
 * v1.5.3 2018-09-14
