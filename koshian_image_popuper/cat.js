@@ -464,7 +464,8 @@ function setCellMap(target_list, name, index) {
         target.appendChild(dummy);
 
         let a = a_list[0];
-        let img_src = img_list[0].src;
+        let img = img_list[0];
+        let img_src = img.src;
         let comment = "";
         if(comment_list.length){
             comment = comment_list[0].textContent;
@@ -474,7 +475,7 @@ function setCellMap(target_list, name, index) {
             font = "(" + font_list[0].textContent + ")";
         }
 
-        cell_map.push(new Cell(a.href, dummy, a, img_src, comment, font, index));
+        cell_map.push(new Cell(a.href, dummy, img, img_src, comment, font, index));
         ++index;
     }
     return index;
