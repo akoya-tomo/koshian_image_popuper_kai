@@ -100,7 +100,7 @@ class Cell{
     }
 
     setImage(url){
-        this.parent.href = this.target;
+        this.parent.href = this.link;
         this.parent.target = "_blank";
         if (g_popup_link) {
             this.parent.onclick = (e) => {
@@ -135,7 +135,7 @@ class Cell{
     }
 
     setVideo(url){
-        this.parent.href = this.target;
+        this.parent.href = this.link;
         this.parent.target = "_blank";
         if (g_popup_link) {
             this.parent.onclick = (e) => {

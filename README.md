@@ -35,7 +35,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.6/koshian_image_popuper_kai-1.5.6-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.7/koshian_image_popuper_kai-1.5.7-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -52,6 +52,8 @@
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 更新履歴
+* v1.5.7 2018-10-01
+  - v1.5.6でポップアップ上でdelフォームが開けない不具合を修正
 * v1.5.6 2018-09-30
   - ポップアップ位置の高さ方向の基点を画像の中心に修正
 * v1.5.5 2018-09-23
