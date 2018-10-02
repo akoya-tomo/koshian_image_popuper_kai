@@ -3,7 +3,7 @@
 
     "name":"KOSHIAN カタログの画像をポップアップで表示 改",
 
-    "version":"1.5.7",
+    "version":"1.6.0",
 
     "description":"スレ画像をポップアップ表示します",
 
@@ -20,6 +20,7 @@
             "exclude_matches": ["*://*.2chan.net/*/res/**","*://*.2chan.net/*/src/*"],
             "matches":["*://*.2chan.net/*/*"],
             "js":["cat.js"],
+            "css":["style.css"],
             "all_frames": true
         }
     ],

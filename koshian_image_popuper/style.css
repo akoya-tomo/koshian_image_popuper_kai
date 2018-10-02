@@ -1,0 +1,17 @@
+
+.ellipsis:before, .ellipsis:after {
+	position: absolute;
+	background: blue;
+}
+
+.ellipsis:before {
+	content: "…";
+	bottom: 0;
+	right: 0;
+}
+
+.ellipsis:after {
+	content: "";
+	width: 100%;
+	height: 100%;
+}

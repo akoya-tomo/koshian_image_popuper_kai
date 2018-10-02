@@ -23,13 +23,13 @@
     </p>
     <input type="checkbox" id="video_play">
     <label for="video_play">動画を自動的に再生</label>
-    </br>
+    <br>
     <input type="checkbox" id="video_muted">
     <label for="video_muted">動画をミュート</label>
-    </br>
+    <br>
     <input type="checkbox" id="video_loop">
     <label for="video_loop">動画をループ</label>
-    </br>
+    <br>
     <input type="checkbox" id="video_control">
     <label for="video_control">動画のコントロールを表示</label>
     </p>
@@ -45,9 +45,16 @@
     <br>
     <input type="checkbox" id="popup_link">
     <label for="popup_link">ポップアップのリンクを有効</label>
-    <br>
-    <input type="checkbox" id="popup_text">
-    <label for="popup_text">ポップアップにスレ本文を表示</label>
+    <p>
+      <input type="checkbox" id="popup_text">
+      <label for="popup_text">ポップアップにスレ本文を表示</label>
+      <br>
+      <input type="number" id="max_text_lines" min="1">
+      <label for="max_text_lines">行 最大表示行数</label>
+      <br>
+      <input type="number" id="text_height" min="1">
+      <label for="text_height">px 行の高さ（最大表示行数が2行以上のとき有効）</label>
+    </p>
     <p>
       <button type="submit">Save</button>
     </p>

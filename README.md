@@ -17,6 +17,7 @@
 * 追加・修正された機能（KOSHIAN カタログの画像をポップアップで表示 改）
   - ポップアップにスレ本文を表示する（デフォルト：無効）  
     ポップアップ画像の下にスレ本文とレス数が表示されます。  
+    ![\(New\)](images/new.png "New") スレ本文の最大表示行数と行の高さを設定することができます。  
     ![スクリーンショット](images/screenshot03.png "スクリーンショット")  
     サムネ使用時はスレ本文の表示文字数はカタログ設定文字数となります。  
   - ポップアップのリンクを有効にする（デフォルト：無効）  
@@ -35,13 +36,12 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.5.7/koshian_image_popuper_kai-1.5.7-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.6.0/koshian_image_popuper_kai-1.6.0-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
 ## 追加機能の補足
 * スレ本文がポップアップ画像の横幅をはみ出る場合は省略されます。  
-* スレ本文がウィンドウ外に見切れるときはポップアップの最大縦幅を調整して下さい。  
 * スレ本文表示時は文字数確保のため、ポップアップの最小横幅が100pxになります。
 
 ## 注意事項
@@ -52,6 +52,10 @@
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 更新履歴
+* v1.6.0 2018-10-02
+  - スレ本文の最大表示行数の設定を追加
+  - スレ本文の行の高さの設定を追加
+  - スレ本文を表示したときにポップアップが画面外にはみ出ることがある不具合を修正
 * v1.5.7 2018-10-01
   - v1.5.6でポップアップ上でdelフォームが開けない不具合を修正
 * v1.5.6 2018-09-30

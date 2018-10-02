@@ -9,7 +9,11 @@ const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
 const DEFAULT_POPUP_TEXT = false;
+const DEFAULT_MAX_TEXT_LINES = 1;
+const DEFAULT_TEXT_HEIGHT = 15;
 const DEFAULT_REQUEST_TIME = 300;
+
+/* eslint indent: ["warn", 2] */
 
 function onError(error) {
 }
@@ -36,7 +40,9 @@ function saveOptions(e) {
     video_volume: document.querySelector("#video_volume").value,
     popup_thumbnail: document.querySelector("#popup_thumbnail").checked,
     popup_link: document.querySelector("#popup_link").checked,
-    popup_text: document.querySelector("#popup_text").checked
+    popup_text: document.querySelector("#popup_text").checked,
+    max_text_lines: document.querySelector("#max_text_lines").value,
+    text_height: document.querySelector("#text_height").value
   });
 }
 
@@ -52,6 +58,11 @@ function setCurrentChoice(result) {
   document.querySelector("#popup_thumbnail").checked = safeGetValue(result.popup_thumbnail, DEFAULT_POPUP_THUMBNAIL);
   document.querySelector("#popup_link").checked = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
   document.querySelector("#popup_text").checked = safeGetValue(result.popup_text, DEFAULT_POPUP_TEXT);
+  document.querySelector("#max_text_lines").value = safeGetValue(result.max_text_lines, DEFAULT_MAX_TEXT_LINES);
+  document.querySelector("#text_height").value = safeGetValue(result.text_height, DEFAULT_TEXT_HEIGHT);
+
+  document.querySelector("#max_text_lines").disabled = !document.querySelector("#popup_text").checked;
+  document.querySelector("#text_height").disabled = !document.querySelector("#popup_text").checked;
 }
 
 function restoreOptions() {
@@ -60,3 +71,7 @@ function restoreOptions() {
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("form").addEventListener("submit", saveOptions);
+document.querySelector("#popup_text").onchange = () => {
+  document.querySelector("#max_text_lines").disabled = !document.querySelector("#popup_text").checked;
+  document.querySelector("#text_height").disabled = !document.querySelector("#popup_text").checked;
+};
