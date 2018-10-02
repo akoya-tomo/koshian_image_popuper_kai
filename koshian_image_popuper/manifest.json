@@ -20,6 +20,7 @@
             "exclude_matches": ["*://*.2chan.net/*/res/**","*://*.2chan.net/*/src/*"],
             "matches":["*://*.2chan.net/*/*"],
             "js":["cat.js"],
+            "css":["style.css"],
             "all_frames": true
         }
     ],
