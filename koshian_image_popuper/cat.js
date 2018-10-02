@@ -11,6 +11,8 @@ const DEFAULT_POPUP_TIME = 300;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
 const DEFAULT_POPUP_TEXT = false;
+const DEFAULT_MAX_TEXT_LINES = 1;
+const DEFAULT_TEXT_HEIGHT = 15;
 const DEFAULT_REQUEST_TIME = 300;
 
 let g_media_max_width = DEFAULT_MEDIA_MAX_WIDTH;
@@ -24,6 +26,8 @@ let g_popup_time = DEFAULT_POPUP_TIME;
 let g_popup_thumbnail = DEFAULT_POPUP_THUMBNAIL;
 let g_popup_link = DEFAULT_POPUP_LINK;
 let g_popup_text = DEFAULT_POPUP_TEXT;
+let g_max_text_lines = DEFAULT_MAX_TEXT_LINES;
+let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
 
 function getMediaUrl(thre_doc){
@@ -88,9 +92,9 @@ class Cell{
         this.text.style.borderStyle = "solid";
         this.text.style.borderWidth = "0 1px";
         this.text.style.borderColor = "blue";
+        this.text.style.position = "relative";
         this.text.style.overflow = "hidden";
-        this.text.style.whiteSpace = "nowrap";
-        this.text.style.textOverflow = "ellipsis";
+        this.text.style.wordBreak = "break-all";
 
         target.setAttribute("KOSHIAN_INDEX", `${index}`);
         target.addEventListener("mouseenter", onMouseEnter);
@@ -286,6 +290,22 @@ class Cell{
         this.popup.style.display = "block";
         this.popup.style.position = "absolute";
         this.popup.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.5)";
+
+        if (g_popup_text) {
+            if (g_max_text_lines == 1) {
+                this.text.className = "";
+                this.text.style.whiteSpace = "nowrap";
+                this.text.style.textOverflow = "ellipsis";
+                this.text.style.maxHeight = "";
+                this.text.style.lineHeight = "";
+            } else {
+                this.text.className = "ellipsis";
+                this.text.style.whiteSpace = "";
+                this.text.style.textOverflow = "";
+                this.text.style.maxHeight = `${g_max_text_lines * g_text_height}px`;
+                this.text.style.lineHeight = `${g_text_height}px`;
+            }
+        }
 
         if(this.img){
             this.img.style.maxWidth = `${this.max_width}px`;
@@ -505,6 +525,8 @@ function onGetSettings(result){
     g_popup_thumbnail = safeGetValue(result.popup_thumbnail, DEFAULT_POPUP_THUMBNAIL);
     g_popup_link = safeGetValue(result.popup_link, DEFAULT_POPUP_LINK);
     g_popup_text = safeGetValue(result.popup_text, DEFAULT_POPUP_TEXT);
+    g_max_text_lines = safeGetValue(result.max_text_lines, DEFAULT_MAX_TEXT_LINES);
+    g_text_height = safeGetValue(result.text_height, DEFAULT_TEXT_HEIGHT);
 }
 
 function onChangeSetting(changes, areaName){
@@ -523,6 +545,8 @@ function onChangeSetting(changes, areaName){
     g_popup_thumbnail = safeGetValue(changes.popup_thumbnail.newValue, DEFAULT_POPUP_THUMBNAIL);
     g_popup_link = safeGetValue(changes.popup_link.newValue, DEFAULT_POPUP_LINK);
     g_popup_text = safeGetValue(changes.popup_text.newValue, DEFAULT_POPUP_TEXT);
+    g_max_text_lines = safeGetValue(changes.max_text_lines.newValue, DEFAULT_MAX_TEXT_LINES);
+    g_text_height = safeGetValue(changes.text_height.newValue, DEFAULT_TEXT_HEIGHT);
 
     for(let i = 0; i < cell_map.length; ++i){
         cell_map[i].setting();
