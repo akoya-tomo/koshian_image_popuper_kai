@@ -310,13 +310,29 @@ class Cell{
         if(this.img){
             this.img.style.maxWidth = `${this.max_width}px`;
             this.img.style.maxHeight = `${this.max_height}px`;
-            this.text.style.maxWidth = `${this.max_width}px`;
-            this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
+            if (g_popup_text) {
+                this.text.style.maxWidth = `${this.max_width}px`;
+                this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
+                let text_rect = this.text.getBoundingClientRect();
+                this.popup.style.maxWidth = `${this.max_width}px`;
+                this.popup.style.maxHeight = `${max_popup_height}px`;
+                this.img.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
+                this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
+                this.text.style.height = `${text_rect.height}px`;
+            }
         }else if(this.video){
             this.video.style.maxWidth = `${this.max_width}px`;
             this.video.style.maxHeight = `${this.max_height}px`;
-            this.text.style.maxWidth = `${this.max_width}px`;
-            this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
+            if (g_popup_text) {
+                this.text.style.maxWidth = `${this.max_width}px`;
+                this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
+                let text_rect = this.text.getBoundingClientRect();
+                this.popup.style.maxWidth = `${this.max_width}px`;
+                this.popup.style.maxHeight = `${max_popup_height}px`;
+                this.video.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
+                this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
+                this.text.style.height = `${text_rect.height}px`;
+            }
         }
 
         if(this.video && g_video_play){
