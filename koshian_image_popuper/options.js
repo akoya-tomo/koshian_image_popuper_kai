@@ -13,6 +13,8 @@ const DEFAULT_MAX_TEXT_LINES = 1;
 const DEFAULT_TEXT_HEIGHT = 15;
 const DEFAULT_REQUEST_TIME = 300;
 
+/* eslint indent: ["warn", 2] */
+
 function onError(error) {
 }
 
