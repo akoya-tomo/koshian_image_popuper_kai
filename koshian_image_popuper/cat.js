@@ -594,6 +594,8 @@ function onLoad(){
         setPickupCell();
     });
 
+    document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
     let status = "";
     let target = document.getElementById("akahuku_catalog_reload_status");
     if (target) {
@@ -631,6 +633,15 @@ function onLoad(){
         let opened_list = document.getElementsByClassName("GM_fth_opened");
         if (opened_list.length) {
             setCellMap(opened_list, ".GM_fth_opened_caption", pickup_index);
+        }
+    }
+
+    function handleVisibilityChange() {
+        if (document.hidden) {
+            // ページが隠れたら全てのポップアップを隠す
+            for (let cell of cell_map) {
+                onMouseLeave(cell);
+            }
         }
     }
 }
