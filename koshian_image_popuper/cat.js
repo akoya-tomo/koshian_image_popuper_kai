@@ -596,6 +596,12 @@ function onLoad(){
 
     document.addEventListener("visibilitychange", handleVisibilityChange, false);
 
+    document.addEventListener("KOSHIAN_cat_reload", () => {
+        cell_map = [];
+        map_index = setCellMap(td_list, "small", 0);
+        setPickupCell();
+    });
+
     let status = "";
     let target = document.getElementById("akahuku_catalog_reload_status");
     if (target) {
