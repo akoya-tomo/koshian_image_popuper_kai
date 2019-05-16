@@ -17,7 +17,7 @@
 * 追加・修正された機能（KOSHIAN カタログの画像をポップアップで表示 改）
   - ポップアップにスレ本文を表示する（デフォルト：無効）  
     ポップアップ画像の下にスレ本文とレス数が表示されます。  
-    ![\(New\)](images/new.png "New") スレ本文の最大表示行数と行の高さを設定することができます。  
+    スレ本文の最大表示行数と行の高さを設定することができます。  
     ![スクリーンショット](images/screenshot03.png "スクリーンショット")  
     サムネ使用時はスレ本文の表示文字数はカタログ設定文字数となります。  
   - ポップアップのリンクを有効にする（デフォルト：無効）  
@@ -33,16 +33,17 @@
     サムネ使用時はエラーの種類に関わらず「スレ画像削除」のエラー画像が表示されます。  
   - 過剰なリクエストの抑制  
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
+  - ![\(New\)](images/new.png "New") [KOSHIAN リロード拡張 改](https://github.com/akoya-tomo/koshian_reload_futaba_kai/)のページ更新無しでのカタログリロードに対応  
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.6.1/koshian_image_popuper_kai-1.6.1-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.6.2/koshian_image_popuper_kai-1.6.2-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
 ## 追加機能の補足
 * スレ本文が最大表示行数を超過する場合は省略されます。  
-* ![\(New\)](images/new.png "New") ポップアップが画面上下端と接触しているとスレ本文が最大表示行数まで表示されないことがあります。  
+* ポップアップが画面上下端と接触しているとスレ本文が最大表示行数まで表示されないことがあります。  
 * スレ本文表示時は文字数確保のため、ポップアップの最小横幅が100pxになります。
 
 ## 注意事項
@@ -53,6 +54,8 @@
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 更新履歴
+* v1.6.2 2019-05-17
+  - KOSHIAN リロード拡張 改のページ更新無しでのカタログリロードに対応
 * v1.6.1 2019-05-15
   - Firefox 68以降でポップアップが表示されたままになる不具合を修正
 * v1.6.0 2018-10-02
