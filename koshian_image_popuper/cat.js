@@ -496,8 +496,15 @@ function setCellMap(target_list, name, index) {
             continue;
         }
 
-        let dummy = document.createElement("a");
-        target.appendChild(dummy);
+        // 既存のポップアップコンテナがあれば削除
+        let containers = target.getElementsByClassName("KOSHIAN_image_popup_container");
+        for (let container of containers) {
+            container.remove();
+        }
+
+        let container = document.createElement("a");
+        container.className = "KOSHIAN_image_popup_container";
+        target.appendChild(container);
 
         let a = a_list[0];
         let img = img_list[0];
@@ -511,7 +518,7 @@ function setCellMap(target_list, name, index) {
             font = "(" + font_list[0].textContent + ")";
         }
 
-        cell_map.push(new Cell(a.href, dummy, img, img_src, comment, font, index));
+        cell_map.push(new Cell(a.href, container, img, img_src, comment, font, index));
         ++index;
     }
     return index;
