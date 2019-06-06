@@ -190,10 +190,15 @@ class Cell{
             this.setVideo(media_url);
         }
 
+        let ss_obj = {};
+        ss_obj.media_url = media_url;
+        ss_obj.thre_text = thre_text;
+        sessionStorage[this.img_src] = JSON.stringify(ss_obj);
+
         //this.loaded = true;
     }
 
-    onThreNotFound(e){
+    onThreNotFound(e){  // eslint-disable-line no-unused-vars
         let media_url = browser.extension.getURL("img/ThreadNotFound.png");
         //console.log("cat.js : media_url = " + media_url);
         this.setImage(media_url);
@@ -205,11 +210,11 @@ class Cell{
         this.setImage(media_url);
         //this.loading = false;
         this.img.error = true;
-        console.log("KOSHIAN_image_popuper/cat.js - onThreError(e):");
+        console.error("KOSHIAN_image_popuper/cat.js/onThreError - " + e.name + ": " + e.message);
         console.dir(e);
     }
 
-    onThreTimeout(e){
+    onThreTimeout(e){   // eslint-disable-line no-unused-vars
         let media_url = browser.extension.getURL("img/TimeOut.png");
         this.setImage(media_url);
         this.img.error = true;
@@ -224,18 +229,42 @@ class Cell{
                 this.setImage(media_url);
             }
             //this.loaded = true;
+        } else if (sessionStorage.getItem(this.img_src)) {
+            let ss_json = sessionStorage.getItem(this.img_src), ss_obj;
+            if (ss_json) {
+                ss_obj = JSON.parse(ss_json);
+            } else {
+                ss_obj = {};
+            }
+            let media_url = ss_obj.media_url;
+            let thre_text = ss_obj.thre_text;
+
+            if (!media_url) {
+                return;
+            }
+    
+            if(thre_text){
+                this.text.textContent = this.res_num + thre_text;
+            }
+        
+            if(isImage(media_url)){
+                this.setImage(media_url);
+            }else{
+                this.setVideo(media_url);
+            }
         } else {
             let xhr = new XMLHttpRequest();
             xhr.responseType = "document";
             xhr.timeout = 60000;
             xhr.open('GET', this.link);
-            xhr.onload = (e) => {if(xhr.status == 200){
-                                   this.onThreLoad(xhr.responseXML);
-                                 }
-                                 if(xhr.status == 404){
-                                   this.onThreNotFound(e);
-                                 }
-                                };
+            xhr.onload = (e) => {
+                if(xhr.status == 200){
+                    this.onThreLoad(xhr.responseXML);
+                }
+                if(xhr.status == 404){
+                    this.onThreNotFound(e);
+                }
+            };
             xhr.onerror = (e) => {this.onThreError(e);};
             xhr.ontimeout = (e) => {this.onThreTimeout(e);};
             xhr.send();
@@ -349,9 +378,7 @@ class Cell{
 
         if(this.img && this.img.error){
             this.img = null;
-            while(this.popup.firstChild){
-                this.popup.removeChild(this.popup.firstChild);
-            }
+            this.popup.textContent = null;  // 子要素全削除
             this.loading = false;
             this.loaded = false;
         }
@@ -483,7 +510,9 @@ function isCatalog(){
 function setCellMap(target_list, name, index) {
     let hasClass = name.charAt(0) == ".";
     // nameの先頭が"."ならclassNameとして処理
-    if(hasClass) name = name.substr(1);
+    if(hasClass) {
+        name = name.substr(1);
+    }
 
     for(let i = 0; i < target_list.length; ++i){
         let target = target_list[i];
@@ -496,8 +525,15 @@ function setCellMap(target_list, name, index) {
             continue;
         }
 
-        let dummy = document.createElement("a");
-        target.appendChild(dummy);
+        // 既存のポップアップコンテナがあれば削除
+        let containers = target.getElementsByClassName("KOSHIAN_image_popup_container");
+        for (let container of containers) {
+            container.remove();
+        }
+
+        let container = document.createElement("a");
+        container.className = "KOSHIAN_image_popup_container";
+        target.appendChild(container);
 
         let a = a_list[0];
         let img = img_list[0];
@@ -511,14 +547,14 @@ function setCellMap(target_list, name, index) {
             font = "(" + font_list[0].textContent + ")";
         }
 
-        cell_map.push(new Cell(a.href, dummy, img, img_src, comment, font, index));
+        cell_map.push(new Cell(a.href, container, img, img_src, comment, font, index));
         ++index;
     }
     return index;
 }
 
 
-function onError(error){    
+function onError(error){    // eslint-disable-line no-unused-vars
 }
 
 function safeGetValue(value, default_value){
@@ -609,14 +645,16 @@ function onLoad(){
     } else {
         document.addEventListener("AkahukuContentApplied", () => {
             target = document.getElementById("akahuku_catalog_reload_status");
-            if (target) checkAkahukuReload();
+            if (target) {
+                checkAkahukuReload();
+            }
         });
     }
 
     function checkAkahukuReload() {
         let config = { childList: true };
         let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
+            mutations.forEach(function(mutation) {  // eslint-disable-line no-unused-vars
                 if (target.textContent == status) return;
                 status = target.textContent;
                 if (status == "完了しました" || status == "アンドゥしました" || status == "リドゥしました") {
