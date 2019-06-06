@@ -190,6 +190,11 @@ class Cell{
             this.setVideo(media_url);
         }
 
+        let ss_obj = {};
+        ss_obj.media_url = media_url;
+        ss_obj.thre_text = thre_text;
+        sessionStorage[this.img_src] = JSON.stringify(ss_obj);
+
         //this.loaded = true;
     }
 
@@ -224,6 +229,29 @@ class Cell{
                 this.setImage(media_url);
             }
             //this.loaded = true;
+        } else if (sessionStorage.getItem(this.img_src)) {
+            let ss_json = sessionStorage.getItem(this.img_src), ss_obj;
+            if (ss_json) {
+                ss_obj = JSON.parse(ss_json);
+            } else {
+                ss_obj = {};
+            }
+            let media_url = ss_obj.media_url;
+            let thre_text = ss_obj.thre_text;
+
+            if (!media_url) {
+                return;
+            }
+    
+            if(thre_text){
+                this.text.textContent = this.res_num + thre_text;
+            }
+        
+            if(isImage(media_url)){
+                this.setImage(media_url);
+            }else{
+                this.setVideo(media_url);
+            }
         } else {
             let xhr = new XMLHttpRequest();
             xhr.responseType = "document";
