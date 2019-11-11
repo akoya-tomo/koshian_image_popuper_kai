@@ -535,7 +535,11 @@ function setCellMap(target_list, name, index) {
 
         let container = document.createElement("a");
         container.className = "KOSHIAN_image_popup_container";
-        target.appendChild(container);
+        if (is_new_layout) {
+            target.firstChild.appendChild(container);
+        } else {
+            target.appendChild(container);
+        }
 
         let a = a_list[0];
         let img = img_list[0];
