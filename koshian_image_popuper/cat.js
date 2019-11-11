@@ -668,16 +668,16 @@ function onLoad(){
 
     function checkAkahukuReload() {
         let config = { childList: true };
-        let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {  // eslint-disable-line no-unused-vars
-                if (target.textContent == status) return;
-                status = target.textContent;
-                if (status == "完了しました" || status == "アンドゥしました" || status == "リドゥしました") {
-                    cell_map = [];
-                    map_index = setCellMap(td_list, "small", 0);
-                    setPickupCell();
-                }
-            });
+        let observer = new MutationObserver(function() {
+            if (target.textContent == status) {
+                return;
+            }
+            status = target.textContent;
+            if (status == "完了しました" || status == "アンドゥしました" || status == "リドゥしました") {
+                cell_map = [];
+                map_index = setCellMap(td_list, "small", 0);
+                setPickupCell();
+            }
         });
         observer.observe(target, config);
     }
