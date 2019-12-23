@@ -2,9 +2,9 @@
   "addons": {
     "{4B803436-E2DF-11E7-8568-2E3D1843E317}": {
       "updates": [
-        { "version": "1.7.1",
-          "update_link": "https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.7.1/koshian_image_popuper_kai-1.7.1-fx.xpi",
-          "update_info_url": "https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.7.1/update_info.html"
+        { "version": "1.8.0",
+          "update_link": "https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.8.0/koshian_image_popuper_kai-1.8.0-fx.xpi",
+          "update_info_url": "https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.8.0/update_info.html"
         }
       ]
     }
