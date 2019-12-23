@@ -29,7 +29,9 @@ let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_max_text_lines = DEFAULT_MAX_TEXT_LINES;
 let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
-let is_new_layout = document.getElementById("cattable") ? document.getElementById("cattable").tagName != "TABLE" : false;
+let cattable_elem = document.getElementById("cattable");
+let is_new_layout = cattable_elem && cattable_elem.tagName != "TABLE";
+let container;
 let timer;
 
 function getMediaUrl(thre_doc){
@@ -527,20 +529,6 @@ function setCellMap(target_list, name, index) {
             continue;
         }
 
-        // 既存のポップアップコンテナがあれば削除
-        let containers = target.getElementsByClassName("KOSHIAN_image_popup_container");
-        for (let container of containers) {
-            container.remove();
-        }
-
-        let container = document.createElement("a");
-        container.className = "KOSHIAN_image_popup_container";
-        if (is_new_layout) {
-            target.firstChild.appendChild(container);
-        } else {
-            target.appendChild(container);
-        }
-
         let a = a_list[0];
         let img = img_list[0];
         let img_src = img.src;
@@ -640,6 +628,13 @@ function onLoad(){
         }
     }
 
+    container = document.getElementById("KOSHIAN_image_popup_container");
+    if (!container) {
+        container = document.createElement("a");
+        container.id = "KOSHIAN_image_popup_container";
+        document.body.appendChild(container);
+    }
+    
     map_index = setCellMap(td_list, "small", 0);
  
     setPickupCell();
