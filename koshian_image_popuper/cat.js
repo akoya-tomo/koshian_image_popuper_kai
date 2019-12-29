@@ -29,8 +29,6 @@ let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_max_text_lines = DEFAULT_MAX_TEXT_LINES;
 let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
-let cattable_elem = document.getElementById("cattable");
-let is_new_layout = cattable_elem && cattable_elem.tagName != "TABLE";
 
 function getMediaUrl(thre_doc){
     let thre = thre_doc.getElementsByClassName("thre")[0];
@@ -553,19 +551,11 @@ function setCellMap(target_list, name, index) {
         let img_src = img.src;
         let comment = "";
         let font = "";
-        if (is_new_layout) {
-            let matches = target.innerText.match(/([^\n]+)\n\n?(\d+)/);
-            if(matches){
-                comment = matches[1];
-                font = "(" + matches[2] + ")";
-            }
-        } else {
-            if(comment_list.length){
-                comment = comment_list[0].textContent;
-            }
-            if(font_list.length){
-                font = "(" + font_list[0].textContent + ")";
-            }
+        if(comment_list.length){
+            comment = comment_list[0].textContent;
+        }
+        if(font_list.length){
+            font = "(" + font_list[0].textContent + ")";
         }
 
         cell_map.push(new Cell(a.href, container, img, img_src, comment, font, index));
@@ -637,14 +627,9 @@ function onLoad(){
 
     browser.storage.onChanged.addListener(onChangeSetting);
 
-    let td_list;
-    if(is_new_layout){
-        td_list = document.getElementsByClassName("cs");
-    } else {
-        td_list = document.getElementsByTagName("td");
-        if(td_list.length == 0){
-            return;
-        }
+    let td_list = document.getElementsByTagName("td");
+    if(td_list.length == 0){
+        return;
     }
 
     map_index = setCellMap(td_list, "small", 0);
@@ -689,35 +674,6 @@ function onLoad(){
                 map_index = setCellMap(td_list, "small", 0);
                 setPickupCell();
             }
-        });
-        observer.observe(target, config);
-    }
-
-    if (is_new_layout) {
-        checkAddedThreads();
-    }
-
-    function checkAddedThreads() {
-        let target = document.getElementById("cattable");
-        let config = { childList: true };
-        let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                let nodes = mutation.addedNodes;
-                for (let node of nodes) {
-                    if (node.classList.contains("cs")) {
-                        if (timer) {
-                            clearTimeout(timer);
-                            timer = null;
-                        }
-                        timer = setTimeout(function() {
-                            timer = null;
-                            cell_map = [];
-                            map_index = setCellMap(td_list, "small", 0);
-                            setPickupCell();
-                        }, 100);
-                    }
-                }
-            });
         });
         observer.observe(target, config);
     }
