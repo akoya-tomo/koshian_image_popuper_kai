@@ -49,10 +49,21 @@ function getMediaUrl(thre_doc){
     }
 
     let text = blockquote.textContent;
-    let mail = thre.querySelector(".thre > font > b > a");
+    // may形式
+    let mail = thre.querySelector(":scope > .cnm > a") || thre.querySelector(":scope > font > b > a");
     if (mail && mail.href.indexOf("%E3%83%BB3%E3%83%BB") > -1) {
         // メール欄に「・3・」が含まれるなら本文先頭がIPなので削除
         text = text.replace(/^\[\S+?\]/, "");
+    } else {
+        // img形式
+        let anchors = thre.querySelectorAll(":scope > .cnw > a") || thre.querySelectorAll(":scope > a");
+        for (let anchor of anchors) {
+            if (anchor.href && anchor.href.indexOf("%E3%83%BB3%E3%83%BB") > -1) {
+                // メール欄に「・3・」が含まれるなら本文先頭がIPなので削除
+                text = text.replace(/^\[\S+?\]/, "");
+                break;
+            }
+        }
     }
 
     return [anchor.href, text];
