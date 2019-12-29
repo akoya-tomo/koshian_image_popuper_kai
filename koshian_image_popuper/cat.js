@@ -31,8 +31,6 @@ let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
 let cattable_elem = document.getElementById("cattable");
 let is_new_layout = cattable_elem && cattable_elem.tagName != "TABLE";
-let container;
-let timer;
 
 function getMediaUrl(thre_doc){
     let thre = thre_doc.getElementsByClassName("thre")[0];
@@ -529,6 +527,16 @@ function setCellMap(target_list, name, index) {
             continue;
         }
 
+        // 既存のポップアップコンテナがあれば削除
+        let old_container = document.getElementById(`KOSHIAN_image_popup_container${index}`);
+        if (old_container) {
+            old_container.remove();
+        }
+
+        let container = document.createElement("a");
+        container.id = `KOSHIAN_image_popup_container${index}`;
+        document.body.appendChild(container);
+
         let a = a_list[0];
         let img = img_list[0];
         let img_src = img.src;
@@ -628,13 +636,6 @@ function onLoad(){
         }
     }
 
-    container = document.getElementById("KOSHIAN_image_popup_container");
-    if (!container) {
-        container = document.createElement("a");
-        container.id = "KOSHIAN_image_popup_container";
-        document.body.appendChild(container);
-    }
-    
     map_index = setCellMap(td_list, "small", 0);
  
     setPickupCell();
