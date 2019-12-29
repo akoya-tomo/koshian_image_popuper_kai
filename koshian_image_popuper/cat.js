@@ -29,10 +29,6 @@ let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_max_text_lines = DEFAULT_MAX_TEXT_LINES;
 let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
-let cattable_elem = document.getElementById("cattable");
-let is_new_layout = cattable_elem && cattable_elem.tagName != "TABLE";
-let container;
-let timer;
 
 function getMediaUrl(thre_doc){
     let thre = thre_doc.getElementsByClassName("thre")[0];
@@ -51,10 +47,21 @@ function getMediaUrl(thre_doc){
     }
 
     let text = blockquote.textContent;
-    let mail = thre.querySelector(".thre > font > b > a");
+    // may形式
+    let mail = thre.querySelector(":scope > .cnm > a") || thre.querySelector(":scope > font > b > a");
     if (mail && mail.href.indexOf("%E3%83%BB3%E3%83%BB") > -1) {
         // メール欄に「・3・」が含まれるなら本文先頭がIPなので削除
         text = text.replace(/^\[\S+?\]/, "");
+    } else {
+        // img形式
+        let anchors = thre.querySelectorAll(":scope > .cnw > a") || thre.querySelectorAll(":scope > a");
+        for (let anchor of anchors) {
+            if (anchor.href && anchor.href.indexOf("%E3%83%BB3%E3%83%BB") > -1) {
+                // メール欄に「・3・」が含まれるなら本文先頭がIPなので削除
+                text = text.replace(/^\[\S+?\]/, "");
+                break;
+            }
+        }
     }
 
     return [anchor.href, text];
@@ -529,24 +536,26 @@ function setCellMap(target_list, name, index) {
             continue;
         }
 
+        // 既存のポップアップコンテナがあれば削除
+        let old_container = document.getElementById(`KOSHIAN_image_popup_container${index}`);
+        if (old_container) {
+            old_container.remove();
+        }
+
+        let container = document.createElement("a");
+        container.id = `KOSHIAN_image_popup_container${index}`;
+        document.body.appendChild(container);
+
         let a = a_list[0];
         let img = img_list[0];
         let img_src = img.src;
         let comment = "";
         let font = "";
-        if (is_new_layout) {
-            let matches = target.innerText.match(/([^\n]+)\n\n?(\d+)/);
-            if(matches){
-                comment = matches[1];
-                font = "(" + matches[2] + ")";
-            }
-        } else {
-            if(comment_list.length){
-                comment = comment_list[0].textContent;
-            }
-            if(font_list.length){
-                font = "(" + font_list[0].textContent + ")";
-            }
+        if(comment_list.length){
+            comment = comment_list[0].textContent;
+        }
+        if(font_list.length){
+            font = "(" + font_list[0].textContent + ")";
         }
 
         cell_map.push(new Cell(a.href, container, img, img_src, comment, font, index));
@@ -618,23 +627,11 @@ function onLoad(){
 
     browser.storage.onChanged.addListener(onChangeSetting);
 
-    let td_list;
-    if(is_new_layout){
-        td_list = document.getElementsByClassName("cs");
-    } else {
-        td_list = document.getElementsByTagName("td");
-        if(td_list.length == 0){
-            return;
-        }
+    let td_list = document.getElementsByTagName("td");
+    if(td_list.length == 0){
+        return;
     }
 
-    container = document.getElementById("KOSHIAN_image_popup_container");
-    if (!container) {
-        container = document.createElement("a");
-        container.id = "KOSHIAN_image_popup_container";
-        document.body.appendChild(container);
-    }
-    
     map_index = setCellMap(td_list, "small", 0);
  
     setPickupCell();
@@ -677,35 +674,6 @@ function onLoad(){
                 map_index = setCellMap(td_list, "small", 0);
                 setPickupCell();
             }
-        });
-        observer.observe(target, config);
-    }
-
-    if (is_new_layout) {
-        checkAddedThreads();
-    }
-
-    function checkAddedThreads() {
-        let target = document.getElementById("cattable");
-        let config = { childList: true };
-        let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                let nodes = mutation.addedNodes;
-                for (let node of nodes) {
-                    if (node.classList.contains("cs")) {
-                        if (timer) {
-                            clearTimeout(timer);
-                            timer = null;
-                        }
-                        timer = setTimeout(function() {
-                            timer = null;
-                            cell_map = [];
-                            map_index = setCellMap(td_list, "small", 0);
-                            setPickupCell();
-                        }, 100);
-                    }
-                }
-            });
         });
         observer.observe(target, config);
     }
