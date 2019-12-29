@@ -37,7 +37,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.8.0/koshian_image_popuper_kai-1.8.0-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.8.1/koshian_image_popuper_kai-1.8.1-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -54,11 +54,14 @@
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 既知の不具合
-* ![\(New\)](images/new.png "New") スレメニューボタン付きカタログでポップアップが表示されたままになることがある。  
+* スレメニューボタン付きカタログでポップアップが表示されたままになることがある。  
   - スレメニューボタン付きカタログに暫定的に対応した影響で発生することがあります。  
     ポップアップが消えない時はブラウザのページ再読み込みをして下さい。（アドオンのリロード機能では消えません）  
 
 ## 更新履歴
+* v1.8.1 2019-12-30
+  - v1.8.0でポップアップ上のリンク先が別のスレになることがある不具合を修正
+  - スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう不具合を修正
 * v1.8.0 2019-12-23
   - スレメニューボタン付きカタログでポップアップの位置がずれる不具合を暫定的に修正
 * v1.7.1 2019-11-11
