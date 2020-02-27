@@ -6,6 +6,7 @@ const DEFAULT_VIDEO_MUTED = false;
 const DEFAULT_VIDEO_VOLUME = 0.5;
 const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
+const DEFAULT_ANIMATION_DURATION = 0;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
 const DEFAULT_POPUP_TEXT = false;
@@ -15,7 +16,7 @@ const DEFAULT_REQUEST_TIME = 300;
 
 /* eslint indent: ["warn", 2] */
 
-function onError(error) {
+function onError(error) { // eslint-disable-line no-unused-vars
 }
 
 function safeGetValue(value, default_value) {
@@ -31,6 +32,7 @@ function saveOptions(e) {
 
   browser.storage.local.set({
     popup_time: document.querySelector("#popup_time").value,
+    animation_duration: document.querySelector("#animation_duration").value,
     media_max_width: document.querySelector("#media_max_width").value,
     media_max_height: document.querySelector("#media_max_height").value,
     video_control: document.querySelector("#video_control").checked,
@@ -48,6 +50,7 @@ function saveOptions(e) {
 
 function setCurrentChoice(result) {
   document.querySelector("#popup_time").value = Math.max(safeGetValue(result.popup_time, DEFAULT_POPUP_TIME), DEFAULT_REQUEST_TIME);
+  document.querySelector("#animation_duration").value = safeGetValue(result.animation_duration, DEFAULT_ANIMATION_DURATION);
   document.querySelector("#media_max_width").value = safeGetValue(result.media_max_width, DEFAULT_MEDIA_MAX_WIDTH);
   document.querySelector("#media_max_height").value = safeGetValue(result.media_max_height, DEFAULT_MEDIA_MAX_HEIGHT);
   document.querySelector("#video_control").checked = safeGetValue(result.video_control, DEFAULT_VIDEO_CONTROL);

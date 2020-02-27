@@ -34,10 +34,12 @@
   - 過剰なリクエストの抑制  
     サーバーへの過剰なリクエストを抑制しました。デメリットとしてポップアップまでの時間の最小値が300ミリ秒に制限されます。表示の遅れが気になるときはサムネ使用をご検討下さい。  
   - [KOSHIAN リロード拡張 改](https://github.com/akoya-tomo/koshian_reload_futaba_kai/)のページ更新無しでのカタログリロードに対応  
+  - ![\(New\)](images/new.png "New") ポップアップ拡大縮小のアニメーション時間（デフォルト：0ms = アニメーション無効）  
+    ポップアップを表示や隠すときの拡大縮小のアニメーション時間を設定できます。
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.8.1/koshian_image_popuper_kai-1.8.1-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.9.0/koshian_image_popuper_kai-1.9.0-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -53,12 +55,9 @@
 * [futaba catalog NG](https://greasyfork.org/ja/scripts/37565-futaba-catalog-ng/)を使用する場合は必ずfutaba catalog NG **v1.2.6以上**をインストールして下さい。
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
-## 既知の不具合
-* スレメニューボタン付きカタログでポップアップが表示されたままになることがある。  
-  - スレメニューボタン付きカタログに暫定的に対応した影響で発生することがあります。  
-    ポップアップが消えない時はブラウザのページ再読み込みをして下さい。（アドオンのリロード機能では消えません）  
-
 ## 更新履歴
+* v1.9.0 2020-02-27
+  - ポップアップ拡大縮小のアニメーションを追加
 * v1.8.1 2019-12-30
   - v1.8.0でポップアップ上のリンク先が別のスレになることがある不具合を修正
   - スレのメール欄に「・3・」でIP表示したときにスレ本文より先にIPが表示されてしまう不具合を修正
