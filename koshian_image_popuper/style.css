@@ -1,17 +1,101 @@
+:root {
+	--animation-duration: 0ms;
+}
 
-.ellipsis:before, .ellipsis:after {
+.KOSHIAN_image_popup > .ellipsis:before, .KOSHIAN_image_popup > .ellipsis:after {
 	position: absolute;
 	background: blue;
 }
 
-.ellipsis:before {
+.KOSHIAN_image_popup > .ellipsis:before {
 	content: "…";
 	bottom: 0;
 	right: 0;
 }
 
-.ellipsis:after {
+.KOSHIAN_image_popup > .ellipsis:after {
 	content: "";
 	width: 100%;
 	height: 100%;
+}
+
+@keyframes zoomIn {
+	from {
+		transform: scale(0,0);
+	}
+	to {
+		transform: scale(1,1);
+	}
+}
+
+@keyframes zoomOut {
+	from {
+		transform: scale(1,1);
+	}
+	to {
+		transform: scale(0,0);
+	}
+}
+
+.KOSHIAN_image_popup {
+	display: none;
+	position: absolute;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.KOSHIAN_image_popup.show {
+	display: block;
+}
+
+.KOSHIAN_image_popup.zoom_in {
+	display: block;
+	animation-name: zoomIn;
+	animation-duration: var(--animation-duration);
+	animation-timing-function: linear;
+	animation-delay: 0ms;
+	animation-fill-mode: forwards;
+}
+
+.KOSHIAN_image_popup.zoom_out {
+	display: block;
+	animation-name: zoomOut;
+	animation-duration: var(--animation-duration);
+	animation-timing-function: linear;
+	animation-delay: 10ms;
+	animation-fill-mode: forwards;
+}
+
+.KOSHIAN_image_popup.top.left {
+	transform-origin: top left;
+}
+
+.KOSHIAN_image_popup.top.right {
+	transform-origin: top right;
+}
+
+.KOSHIAN_image_popup.bottom.left {
+	transform-origin: bottom left;
+}
+
+.KOSHIAN_image_popup.bottom.right {
+	transform-origin: bottom right;
+}
+
+.KOSHIAN_image_popup > .text {
+	font-size: small;
+	color: white;
+	background-color: blue;
+	border-style: solid;
+	border-width: 0 1px;
+	border-color: blue;
+	position: relative;
+	overflow: hidden;
+	word-break: break-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.KOSHIAN_image_popup > .text.ellipsis {
+	white-space: normal;
+	text-overflow: clip;	
 }

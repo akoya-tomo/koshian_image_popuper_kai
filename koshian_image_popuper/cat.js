@@ -8,6 +8,7 @@ const DEFAULT_VIDEO_MUTED = false;
 const DEFAULT_VIDEO_VOLUME = 0.5;
 const DEFAULT_VIDEO_PLAY = true;
 const DEFAULT_POPUP_TIME = 300;
+const DEFAULT_ANIMATION_DURATION = 0;
 const DEFAULT_POPUP_THUMBNAIL = false;
 const DEFAULT_POPUP_LINK = false;
 const DEFAULT_POPUP_TEXT = false;
@@ -23,12 +24,14 @@ let g_video_muted = DEFAULT_VIDEO_MUTED;
 let g_video_volume = DEFAULT_VIDEO_VOLUME;
 let g_video_play = DEFAULT_VIDEO_PLAY;
 let g_popup_time = DEFAULT_POPUP_TIME;
+let g_animation_duration = DEFAULT_ANIMATION_DURATION;
 let g_popup_thumbnail = DEFAULT_POPUP_THUMBNAIL;
 let g_popup_link = DEFAULT_POPUP_LINK;
 let g_popup_text = DEFAULT_POPUP_TEXT;
 let g_max_text_lines = DEFAULT_MAX_TEXT_LINES;
 let g_text_height = DEFAULT_TEXT_HEIGHT;
 let g_request_time = DEFAULT_REQUEST_TIME;
+let main_container = null;
 
 function getMediaUrl(thre_doc){
     let thre = thre_doc.getElementsByClassName("thre")[0];
@@ -91,21 +94,13 @@ class Cell{
         this.text = document.createElement("div");
         this.res_num = res_num;
 
-        this.popup.style.display = "none";
+        this.popup.classList.add("KOSHIAN_image_popup");
         this.popup.style.zIndex = 100;
         this.popup.setAttribute("KOSHIAN_INDEX", `${index}`);
         parent.appendChild(this.popup);
 
+        this.text.className = "text";
         this.text.textContent = res_num + text;
-        this.text.style.fontSize = "small";
-        this.text.style.color = "white";
-        this.text.style.backgroundColor = "blue";
-        this.text.style.borderStyle = "solid";
-        this.text.style.borderWidth = "0 1px";
-        this.text.style.borderColor = "blue";
-        this.text.style.position = "relative";
-        this.text.style.overflow = "hidden";
-        this.text.style.wordBreak = "break-all";
 
         target.setAttribute("KOSHIAN_INDEX", `${index}`);
         target.addEventListener("mouseenter", onMouseEnter);
@@ -283,7 +278,7 @@ class Cell{
         }
     }
 
-    show(){
+    show(zoom_in = false){
         if(!this.loaded){
             return;
         }
@@ -302,6 +297,8 @@ class Cell{
             this.popup.style.left = `${ccx}px`;
             this.popup.style.right = null;
             max_popup_width = clientW - cx;
+            this.popup.classList.add("left");
+            this.popup.classList.remove("right");
         }else{
             this.popup.style.left = null;
             this.popup.style.right = `${clientW - ccx}px`;
@@ -312,36 +309,36 @@ class Cell{
                 this.video.style.cssFloat = "right";
             }
             this.text.style.cssFloat = "right";
+            this.popup.classList.add("right");
+            this.popup.classList.remove("left");
         }
         
         if(cy < clientH/2){
             this.popup.style.top = `${ccy}px`;
             this.popup.style.bottom = null;
             max_popup_height = clientH - cy;
+            this.popup.classList.add("top");
+            this.popup.classList.remove("bottom");
         }else{
             this.popup.style.top = null;
             this.popup.style.bottom=`${clientH - ccy}px`;
             max_popup_height = cy;
+            this.popup.classList.add("bottom");
+            this.popup.classList.remove("top");
         }
 
         this.max_width = Math.min(g_media_max_width, max_popup_width);
         this.max_height = Math.min(g_media_max_height, max_popup_height);
 
-        this.popup.style.display = "block";
-        this.popup.style.position = "absolute";
-        this.popup.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.5)";
+        this.popup.classList.remove("zoom_out");
 
         if (g_popup_text) {
             if (g_max_text_lines == 1) {
-                this.text.className = "";
-                this.text.style.whiteSpace = "nowrap";
-                this.text.style.textOverflow = "ellipsis";
+                this.text.classList.remove("ellipsis");
                 this.text.style.maxHeight = "";
                 this.text.style.lineHeight = "";
             } else {
-                this.text.className = "ellipsis";
-                this.text.style.whiteSpace = "";
-                this.text.style.textOverflow = "";
+                this.text.classList.add("ellipsis");
                 this.text.style.maxHeight = `${g_max_text_lines * g_text_height}px`;
                 this.text.style.lineHeight = `${g_text_height}px`;
             }
@@ -351,6 +348,7 @@ class Cell{
             this.img.style.maxWidth = `${this.max_width}px`;
             this.img.style.maxHeight = `${this.max_height}px`;
             if (g_popup_text) {
+                this.popup.classList.add("show");
                 this.text.style.maxWidth = `${this.max_width}px`;
                 this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
                 let text_rect = this.text.getBoundingClientRect();
@@ -359,11 +357,15 @@ class Cell{
                 this.img.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
                 this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
                 this.text.style.height = `${text_rect.height}px`;
+                if (g_animation_duration > 0) {
+                    this.popup.classList.remove("show");
+                }
             }
         }else if(this.video){
             this.video.style.maxWidth = `${this.max_width}px`;
             this.video.style.maxHeight = `${this.max_height}px`;
             if (g_popup_text) {
+                this.popup.classList.add("show");
                 this.text.style.maxWidth = `${this.max_width}px`;
                 this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
                 let text_rect = this.text.getBoundingClientRect();
@@ -372,7 +374,16 @@ class Cell{
                 this.video.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
                 this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
                 this.text.style.height = `${text_rect.height}px`;
+                if (g_animation_duration > 0) {
+                    this.popup.classList.remove("show");
+                }
             }
+        }
+
+        if (zoom_in && g_animation_duration > 0) {
+            this.popup.classList.add("zoom_in");
+        } else {
+            this.popup.classList.add("show");
         }
 
         if(this.video && g_video_play){
@@ -385,7 +396,11 @@ class Cell{
             this.video.pause();
         }
 
-        this.popup.style.display = "none";
+        this.popup.classList.remove("show");
+        this.popup.classList.remove("zoom_in");
+        if (g_animation_duration > 0) {
+            this.popup.classList.add("zoom_out");
+        }
 
         if(this.img && this.img.error){
             this.img = null;
@@ -454,7 +469,7 @@ function onMouseEnter(e){
                     if(cell.loaded){
                         clearInterval(cell.loaded_timer);
                         cell.loaded_timer = null;
-                        cell.show();
+                        cell.show(true);
                     }
                 }, 10);
             }
@@ -544,7 +559,7 @@ function setCellMap(target_list, name, index) {
 
         let container = document.createElement("a");
         container.id = `KOSHIAN_image_popup_container${index}`;
-        document.body.appendChild(container);
+        main_container.appendChild(container);
 
         let a = a_list[0];
         let img = img_list[0];
@@ -578,6 +593,7 @@ function safeGetValue(value, default_value){
 
 function onGetSettings(result){
     g_popup_time = Math.max(safeGetValue(result.popup_time, DEFAULT_POPUP_TIME), DEFAULT_REQUEST_TIME);
+    g_animation_duration = safeGetValue(result.animation_duration, DEFAULT_ANIMATION_DURATION);
     g_media_max_width = safeGetValue(result.media_max_width, DEFAULT_MEDIA_MAX_WIDTH);
     g_media_max_height = safeGetValue(result.media_max_height, DEFAULT_MEDIA_MAX_HEIGHT);
     g_video_control = safeGetValue(result.video_control, DEFAULT_VIDEO_CONTROL);
@@ -590,6 +606,8 @@ function onGetSettings(result){
     g_popup_text = safeGetValue(result.popup_text, DEFAULT_POPUP_TEXT);
     g_max_text_lines = safeGetValue(result.max_text_lines, DEFAULT_MAX_TEXT_LINES);
     g_text_height = safeGetValue(result.text_height, DEFAULT_TEXT_HEIGHT);
+
+    document.documentElement.style.setProperty("--animation-duration", `${g_animation_duration}ms`);
 }
 
 function onChangeSetting(changes, areaName){
@@ -598,6 +616,7 @@ function onChangeSetting(changes, areaName){
     }
 
     g_popup_time = safeGetValue(changes.popup_time.newValue, DEFAULT_POPUP_TIME);
+    g_animation_duration = safeGetValue(changes.animation_duration.newValue, DEFAULT_ANIMATION_DURATION);
     g_media_max_width = safeGetValue(changes.media_max_width.newValue, DEFAULT_MEDIA_MAX_WIDTH);
     g_media_max_height = safeGetValue(changes.media_max_height.newValue, DEFAULT_MEDIA_MAX_HEIGHT);
     g_video_control = safeGetValue(changes.video_control.newValue, DEFAULT_VIDEO_CONTROL);
@@ -610,6 +629,8 @@ function onChangeSetting(changes, areaName){
     g_popup_text = safeGetValue(changes.popup_text.newValue, DEFAULT_POPUP_TEXT);
     g_max_text_lines = safeGetValue(changes.max_text_lines.newValue, DEFAULT_MAX_TEXT_LINES);
     g_text_height = safeGetValue(changes.text_height.newValue, DEFAULT_TEXT_HEIGHT);
+
+    document.documentElement.style.setProperty("--animation-duration", `${g_animation_duration}ms`);
 
     for(let i = 0; i < cell_map.length; ++i){
         cell_map[i].setting();
@@ -630,6 +651,15 @@ function onLoad(){
     let td_list = document.getElementsByTagName("td");
     if(td_list.length == 0){
         return;
+    }
+
+    main_container = document.getElementById("KOSHIAN_image_popup_main_container");
+    if (main_container) {
+        main_container.textContent = null;   // main containerの子要素を全削除
+    } else {
+        main_container = document.createElement("div");
+        main_container.id = "KOSHIAN_image_popup_main_container";
+        document.body.appendChild(main_container);
     }
 
     map_index = setCellMap(td_list, "small", 0);
