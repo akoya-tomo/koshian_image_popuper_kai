@@ -86,6 +86,8 @@ class Cell{
         this.max_width = 0;
         this.max_height = 0;
         this.mouseon = false;
+        this.mouse_reenter = false;
+        this.mouse_leave_simple = false;
         this.popup_timer = null;
         this.request_timer = null;
         this.loaded_timer = null;
@@ -448,6 +450,7 @@ function onMouseEnter(e){
     }
 
     cell.mouseon = true;
+    cell.mouse_leave_simple = false;
     g_request_time = Math.min(g_request_time, g_popup_time);
 
     if(!cell.request_timer){
@@ -469,7 +472,11 @@ function onMouseEnter(e){
                     if(cell.loaded){
                         clearInterval(cell.loaded_timer);
                         cell.loaded_timer = null;
-                        cell.show(true);
+                        if (cell.mouse_reenter) {
+                            cell.mouse_reenter = false;
+                        } else {
+                            cell.show(true);
+                        }
                     }
                 }, 10);
             }
@@ -485,6 +492,7 @@ function onMouseLeave(e){
     }
 
     cell.mouseon = false;
+    cell.mouse_reenter = false;
     if (cell.loaded_timer) {
         clearInterval(cell.loaded_timer);
         cell.loaded_timer = null;
@@ -508,6 +516,10 @@ function onMouseEnterSimple(e){
         return;
     }
 
+    cell.mouse_reenter = false;
+    if (cell.mouse_leave_simple) {
+        return;
+    }
     cell.show();
 }
 
@@ -518,6 +530,13 @@ function onMouseLeaveSimple(e){
         return;
     }
 
+    let related_target = e.relatedTarget;
+    if (related_target && e.target.getAttribute("KOSHIAN_INDEX") == related_target.getAttribute("KOSHIAN_INDEX")) {
+        cell.mouse_reenter = true;
+        return;
+    }
+
+    cell.mouse_leave_simple = true;
     cell.hide();
 
 }

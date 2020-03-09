@@ -39,7 +39,7 @@
 
 ## インストール
 **GitHub**  
-[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.9.0/koshian_image_popuper_kai-1.9.0-fx.xpi)  
+[![インストールボタン](images/install_button.png "クリックでアドオンをインストール")](https://github.com/akoya-tomo/koshian_image_popuper_kai/releases/download/v1.9.2/koshian_image_popuper_kai-1.9.2-fx.xpi)  
 
 ※「接続エラーのため、アドオンをダウンロードできませんでした。」と表示されてインストール出来ない時は、インストールボタンを右クリックしてxpiファイルをダウンロードし、メニューのツール→アドオン（またはCtrl+Shift+A）で表示されたアドオンマネージャーのページにxpiファイルをドラッグ＆ドロップして下さい。  
 
@@ -56,6 +56,10 @@
 * [futaba thread highlighter K](https://greasyfork.org/ja/scripts/36639-futaba-thread-highlighter-k/)がピックアップしたスレの画像もポップアップさせたい場合はfutaba thread highlighter K **rev13以上**をインストールして下さい。
 
 ## 更新履歴
+* v1.9.2 2020-03-09
+  - 縮小中のポップアップにマウスカーソルを移動したときに開く動作をしないように修正
+* v1.9.1 2020-03-09
+  - ポップアップからサムネにマウスカーソルを移動したときに閉じる動作をしないように修正
 * v1.9.0 2020-02-27
   - ポップアップ拡大縮小のアニメーションを追加
 * v1.8.1 2019-12-30
