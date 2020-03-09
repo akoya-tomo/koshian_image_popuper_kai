@@ -87,6 +87,7 @@ class Cell{
         this.max_height = 0;
         this.mouseon = false;
         this.mouse_reenter = false;
+        this.mouse_leave_simple = false;
         this.popup_timer = null;
         this.request_timer = null;
         this.loaded_timer = null;
@@ -449,6 +450,7 @@ function onMouseEnter(e){
     }
 
     cell.mouseon = true;
+    cell.mouse_leave_simple = false;
     g_request_time = Math.min(g_request_time, g_popup_time);
 
     if(!cell.request_timer){
@@ -515,6 +517,9 @@ function onMouseEnterSimple(e){
     }
 
     cell.mouse_reenter = false;
+    if (cell.mouse_leave_simple) {
+        return;
+    }
     cell.show();
 }
 
@@ -531,6 +536,7 @@ function onMouseLeaveSimple(e){
         return;
     }
 
+    cell.mouse_leave_simple = true;
     cell.hide();
 
 }
