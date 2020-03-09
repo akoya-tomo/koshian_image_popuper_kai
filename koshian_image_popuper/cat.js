@@ -86,6 +86,7 @@ class Cell{
         this.max_width = 0;
         this.max_height = 0;
         this.mouseon = false;
+        this.mouse_reenter = false;
         this.popup_timer = null;
         this.request_timer = null;
         this.loaded_timer = null;
@@ -469,7 +470,11 @@ function onMouseEnter(e){
                     if(cell.loaded){
                         clearInterval(cell.loaded_timer);
                         cell.loaded_timer = null;
-                        cell.show(true);
+                        if (cell.mouse_reenter) {
+                            cell.mouse_reenter = false;
+                        } else {
+                            cell.show(true);
+                        }
                     }
                 }, 10);
             }
@@ -485,6 +490,7 @@ function onMouseLeave(e){
     }
 
     cell.mouseon = false;
+    cell.mouse_reenter = false;
     if (cell.loaded_timer) {
         clearInterval(cell.loaded_timer);
         cell.loaded_timer = null;
@@ -508,6 +514,7 @@ function onMouseEnterSimple(e){
         return;
     }
 
+    cell.mouse_reenter = false;
     cell.show();
 }
 
@@ -515,6 +522,12 @@ function onMouseLeaveSimple(e){
     let cell = getCell(e.target.getAttribute("KOSHIAN_INDEX"));
 
     if(cell == null){
+        return;
+    }
+
+    let related_target = e.relatedTarget;
+    if (related_target && e.target.getAttribute("KOSHIAN_INDEX") == related_target.getAttribute("KOSHIAN_INDEX")) {
+        cell.mouse_reenter = true;
         return;
     }
 
