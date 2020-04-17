@@ -493,6 +493,15 @@ function onMouseLeave(e){
 
     cell.mouseon = false;
     cell.mouse_reenter = false;
+
+    let related_parent = e.relatedTarget ? e.relatedTarget.parentNode : null;
+    if (related_parent && e.target.getAttribute("KOSHIAN_INDEX") == related_parent.getAttribute("KOSHIAN_INDEX")) {
+        cell.mouse_leave_simple = false;
+        return;
+    } else {
+        cell.mouse_leave_simple = true;
+    }
+
     if (cell.loaded_timer) {
         clearInterval(cell.loaded_timer);
         cell.loaded_timer = null;
