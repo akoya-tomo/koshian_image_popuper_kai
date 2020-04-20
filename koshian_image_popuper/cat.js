@@ -344,6 +344,8 @@ class Cell{
                 this.text.style.maxHeight = `${g_max_text_lines * g_text_height}px`;
                 this.text.style.lineHeight = `${g_text_height}px`;
             }
+            this.text.style.minHeight = `${g_text_height}px`;
+            this.text.style.height = "";
         }
 
         if(this.img){
