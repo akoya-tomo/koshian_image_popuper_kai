@@ -45,6 +45,7 @@
 
 .KOSHIAN_image_popup.show {
 	display: block;
+	animation: none;
 }
 
 .KOSHIAN_image_popup.zoom_in {
