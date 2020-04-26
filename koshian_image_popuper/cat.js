@@ -355,12 +355,12 @@ class Cell{
                 this.popup.classList.add("show");
                 this.text.style.maxWidth = `${this.max_width}px`;
                 this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
-                let text_rect = this.text.getBoundingClientRect();
+                let text_client_height = this.text.clientHeight;
                 this.popup.style.maxWidth = `${this.max_width}px`;
                 this.popup.style.maxHeight = `${max_popup_height}px`;
-                this.img.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
+                this.img.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_client_height)}px`;
                 this.text.style.width = this.img.clientWidth > 0 ? `${this.img.clientWidth}px` : `${this.max_width}px`;
-                this.text.style.height = `${text_rect.height}px`;
+                this.text.style.height = `${text_client_height}px`;
                 if (g_animation_duration > 0) {
                     this.popup.classList.remove("show");
                 }
@@ -372,12 +372,12 @@ class Cell{
                 this.popup.classList.add("show");
                 this.text.style.maxWidth = `${this.max_width}px`;
                 this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
-                let text_rect = this.text.getBoundingClientRect();
+                let text_client_height = this.text.clientHeight;
                 this.popup.style.maxWidth = `${this.max_width}px`;
                 this.popup.style.maxHeight = `${max_popup_height}px`;
-                this.video.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_rect.height)}px`;
+                this.video.style.maxHeight = `${Math.min(this.max_height, max_popup_height - text_client_height)}px`;
                 this.text.style.width = this.video.clientWidth > 0 ? `${this.video.clientWidth}px` : `${this.max_width}px`;
-                this.text.style.height = `${text_rect.height}px`;
+                this.text.style.height = `${text_client_height}px`;
                 if (g_animation_duration > 0) {
                     this.popup.classList.remove("show");
                 }
